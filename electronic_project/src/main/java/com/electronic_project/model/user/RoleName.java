@@ -1,4 +1,4 @@
-package com.codegym.model.user;
+package com.electronic_project.model.user;
 
 public enum RoleName {
     ROLE_CUSTOMER,

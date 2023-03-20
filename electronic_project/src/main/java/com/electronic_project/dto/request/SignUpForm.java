@@ -1,6 +1,6 @@
-package com.codegym.dto.request;
+package com.electronic_project.dto.request;
 
-import com.codegym.model.user.User;
+import com.electronic_project.model.user.User;
 import org.springframework.validation.Errors;
 
 import javax.validation.constraints.NotBlank;

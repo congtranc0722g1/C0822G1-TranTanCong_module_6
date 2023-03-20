@@ -1,8 +1,8 @@
-package com.codegym.config;
+package com.electronic_project.config;
 
-import com.codegym.security.jwt.JwtEntryPoint;
-import com.codegym.security.jwt.JwtTokenFilter;
-import com.codegym.security.userPrincipcal.UserDetailService;
+import com.electronic_project.security.jwt.JwtEntryPoint;
+import com.electronic_project.security.jwt.JwtTokenFilter;
+import com.electronic_project.security.userPrincipcal.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

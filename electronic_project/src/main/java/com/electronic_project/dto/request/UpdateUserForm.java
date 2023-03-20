@@ -1,6 +1,6 @@
-package com.codegym.dto.request;
+package com.electronic_project.dto.request;
 
-import com.codegym.model.user.User;
+import com.electronic_project.model.user.User;
 import org.springframework.validation.Errors;
 
 import javax.validation.constraints.NotBlank;
@@ -126,7 +126,7 @@ public class UpdateUserForm {
                error.rejectValue("email","email","Email " + updateUserForm.getEmail() + " đã được sử dụng vui lòng nhập email khác" );
 
            }
-           if (Objects.equals(list.get(i).getPhoneNumber(), updateUserForm.getPhoneNumber())) {
+           if (Objects.equals(list.get(i).getPhone(), updateUserForm.getPhoneNumber())) {
                error.rejectValue("phoneNumber","phoneNumber","Số điện thoại " + updateUserForm.getPhoneNumber() + " đã được sử dụng vui lòng nhập số điện thoại khác" );
 
            }

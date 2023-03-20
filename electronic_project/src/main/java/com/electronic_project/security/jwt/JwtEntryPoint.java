@@ -1,4 +1,4 @@
-package com.codegym.security.jwt;
+package com.electronic_project.security.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
-package com.codegym.security.userPrincipcal;
+package com.electronic_project.security.userPrincipcal;
 
-import com.codegym.model.user.User;
+import com.electronic_project.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -108,7 +108,7 @@ public class UserPrinciple implements UserDetails {
     }
 
     public static UserPrinciple build(User user) {
-        List<GrantedAuthority> authorityList = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+        List<GrantedAuthority> authorityList = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
         return new UserPrinciple(
                 user.getId(),
                 user.getUsername(),
@@ -116,11 +116,6 @@ public class UserPrinciple implements UserDetails {
                 user.getName(),
                 user.getEmail(),
                 user.getAvatar(),
-                user.getPhoneNumber(),
-                user.getAddress(),
-                user.getAge(),
-                user.getGender(),
-                user.getDateOfBirth(),
                 authorityList
         );
     }

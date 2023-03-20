@@ -1,4 +1,4 @@
-package com.codegym.dto.request;
+package com.electronic_project.dto.request;
 
 import javax.validation.constraints.NotBlank;
 

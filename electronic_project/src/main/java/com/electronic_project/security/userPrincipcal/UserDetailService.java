@@ -1,7 +1,7 @@
-package com.codegym.security.userPrincipcal;
+package com.electronic_project.security.userPrincipcal;
 
-import com.codegym.model.user.User;
-import com.codegym.repository.IUserRepository;
+import com.electronic_project.model.user.User;
+import com.electronic_project.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

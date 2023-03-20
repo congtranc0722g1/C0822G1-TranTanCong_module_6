@@ -1,4 +1,4 @@
-package com.codegym.dto.response;
+package com.electronic_project.dto.response;
 
 import org.springframework.security.core.GrantedAuthority;
 
