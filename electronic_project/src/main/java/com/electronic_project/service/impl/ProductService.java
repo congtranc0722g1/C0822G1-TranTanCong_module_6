@@ -1,4 +1,2 @@
-package com.electronic_project.service.impl;
-
-public class ProductService {
+package com.electronic_project.service.impl;public class ProductService {
 }

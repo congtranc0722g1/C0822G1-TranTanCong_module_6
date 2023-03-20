@@ -2711,6 +2711,11 @@ fieldset:disabled a.btn {
   background-color: transparent;
 }
 
+.btn-outline-acv.disabled, .btn-outline-btn-outline-acv:disabled {
+  color: #EDF1FF;
+  background-color: transparent;
+}
+
 .btn-outline-secondary:not(:disabled):not(.disabled):active, .btn-outline-secondary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-secondary.dropdown-toggle {
   color: #212529;

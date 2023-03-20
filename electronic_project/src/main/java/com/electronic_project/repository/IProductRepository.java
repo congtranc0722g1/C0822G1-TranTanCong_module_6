@@ -1,4 +1,2 @@
-package com.electronic_project.repository;
-
-public interface IProductRepository {
+package com.electronic_project.repository;public interface IProductRepository {
 }

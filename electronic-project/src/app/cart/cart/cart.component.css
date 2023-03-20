@@ -1,0 +1,21 @@
+#buy-amount {
+  display: flex;
+}
+#buy-amount #amount {
+  width: 38px;
+  text-align: center;
+  border: 1px solid #ececec;
+}
+
+#buy-amount button:hover{
+  background-color: #ececec;
+}
+
+#buy-amount button{
+  width: 32px;
+  height: 32px;
+  outline: none;
+  background: none;
+  border: 1px solid #ececec;
+  cursor: pointer;
+}

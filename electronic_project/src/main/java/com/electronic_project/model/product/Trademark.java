@@ -1,6 +1,6 @@
 package com.electronic_project.model;
 
-public class Product {
+public class Trademark {
     private int id;
-    private String name;
+
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductService} from "../../service/product/product.service";
+import {Product} from "../../model/product/product";
 
 @Component({
   selector: 'app-body',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BodyComponent implements OnInit {
 
-  constructor() { }
+  latestProductList: Product[] = [];
+
+  constructor(private productService: ProductService) {
+    this.productService.showLatestProductList().subscribe(next => {
+      console.log(next)
+      this.latestProductList = next;
+    })
+  }
 
   ngOnInit(): void {
   }
 
+  ok() {
+    alert("thanks")
+  }
 }
