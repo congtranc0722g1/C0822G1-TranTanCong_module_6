@@ -20,7 +20,7 @@ public class Product {
     private Double price;
     private Double entryPrice;
     private Integer quantity;
-    private Double flagDelete;
+    private Boolean flagDelete;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "id")
@@ -103,11 +103,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Double getFlagDelete() {
+    public Boolean getFlagDelete() {
         return flagDelete;
     }
 
-    public void setFlagDelete(Double flagDelete) {
+    public void setFlagDelete(Boolean flagDelete) {
         this.flagDelete = flagDelete;
     }
 

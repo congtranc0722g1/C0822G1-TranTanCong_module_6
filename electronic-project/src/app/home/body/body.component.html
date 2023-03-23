@@ -8,14 +8,14 @@
         <h6 class="m-0 text-white">DANH MỤC SẢN PHẨM</h6>
       </div>
       <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
-        <div class="navbar-nav w-100 overflow-auto" style="height: 298px; font-weight: bold">
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger">1. NGUỒN</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger">2. IC</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger">3. ĐIỆN TRỞ</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger">4. TỤ ĐIỆN</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger">5. DIODE</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger">6. LED</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger">7. RELAY</a>
+        <div class="navbar-nav w-100 overflow-auto" style="height: 298px">
+          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/arduino.png" height="23px" width="23px"></span> Arduino</a>
+          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/cam-bien.png" height="23px" width="23px"></span> Cảm biến</a>
+          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span><img src="https://nshopvn.com/coloricons/den-led-dieu-khien-den-led.png" height="23px" width="23px"></span> Đèn LED, Điều khiển LED</a>
+          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-nang-luong-mat-troi-solar.png" height="23px" width="23px"></span> Điện năng lượng mặt trời</a>
+          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/module-mach-dien.png" height="23px" width="23px"></span> Module, Mạch điện</a>
+          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-dan-dung-va-cong-nghiep.png" height="23px" width="23px"></span> Điện dân dụng và Công nghiệp</a>
+          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/robot-phu-kien-diy.png" height="23px" width="23px"></span> Robot, Phụ kiện DIY</a>
 
         </div>
       </nav>
@@ -113,7 +113,7 @@
     <h2 class="section-title px-5"><span class="px-2">Sản phẩm mới nhất</span></h2>
   </div>
   <div class="row px-xl-5 pb-3">
-    <div class="col-lg-3 col-md-6 col-sm-12 pb-1" *ngFor="let latestProduct of latestProductList" (click)="ok()">
+    <div class="col-lg-3 col-md-6 col-sm-12 pb-1" *ngFor="let latestProduct of latestProductList" [routerLink]="['/detail', latestProduct.id]">
       <div class="card product-item border-0 mb-4" style="height: 400px">
         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
           <img class="img-fluid h-100 w-100" src="{{latestProduct.images[0].url}}" alt="Đang cập nhật">

@@ -3,12 +3,14 @@ USE electronic_component;
 
 CREATE TABLE trademark (
 id INT AUTO_INCREMENT PRIMARY KEY,
-   `name` VARCHAR(255) NOT NULL
+   `name` VARCHAR(255) NOT NULL,
+   `description` LONGTEXT
 );
 
 CREATE TABLE category (
     id INT AUTO_INCREMENT PRIMARY KEY,
-   `name` VARCHAR(255) NOT NULL
+   `name` VARCHAR(255) NOT NULL,
+   `description` LONGTEXT
 );
 
 CREATE TABLE product (
@@ -17,20 +19,29 @@ CREATE TABLE product (
   trademark_id INT NOT NULL,
   `code` VARCHAR(8),
   `name` VARCHAR(255) NOT NULL,
+  create_day DATETIME,
   `description` LONGTEXT,
   price DOUBLE NOT NULL,
   quantity INT NOT NULL,
-  image LONGTEXT,
+  flag_delete BIT(1),
   FOREIGN KEY (category_id) REFERENCES category(id),
   FOREIGN KEY (trademark_id) REFERENCES trademark(id)
 );
 
-CREATE TABLE `account` (
-id_account INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE image (
+id INT PRIMARY KEY AUTO_INCREMENT,
+ulr LONGTEXT,
+product_id INT NOT NULL,
+ FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+CREATE TABLE `user` (
+id INT PRIMARY KEY AUTO_INCREMENT,
 username VARCHAR(50) NOT NULL UNIQUE,
 `password` VARCHAR(255) NOT NULL,
 `name` VARCHAR(255) NOT NULL,
-avatar LONGTEXT
+avatar LONGTEXT,
+flag_delete BIT(1)
 );
 
 CREATE TABLE `role` (
@@ -38,11 +49,11 @@ id INT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(255)
 );
 
-CREATE TABLE account_role (
-account_id INT NOT NULL,
+CREATE TABLE user_role (
+user_id INT NOT NULL,
 role_id INT NOT NULL,
-PRIMARY KEY (account_id, role_id),
-FOREIGN KEY (account_id) REFERENCES `account`(id_account),
+PRIMARY KEY (user_id, role_id),
+FOREIGN KEY (user_id) REFERENCES `user`(id),
 FOREIGN KEY (role_id) REFERENCES `role`(id)
 );
 
@@ -52,8 +63,9 @@ CREATE TABLE customer (
   email VARCHAR(255) NOT NULL UNIQUE,
   phone VARCHAR(20) NOT NULL UNIQUE,
   address VARCHAR(255),
-  account_id INT NOT NULL,
-  FOREIGN KEY (account_id) REFERENCES `account`(id_account)
+  user_id INT NOT NULL,
+  flag_delete BIT(1),
+  FOREIGN KEY (user_id) REFERENCES `user`(id)
 );
 
 CREATE TABLE staff (
@@ -64,8 +76,9 @@ CREATE TABLE staff (
   phone VARCHAR(20) NOT NULL UNIQUE,
   address VARCHAR(255),
   salary DOUBLE,
-  account_id INT NOT NULL,
-  FOREIGN KEY (account_id) REFERENCES `account`(id_account)
+  flag_delete BOOLEAN,
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES `user`(id)
 );
 
 CREATE TABLE `order` (
@@ -88,13 +101,4 @@ CREATE TABLE order_detail (
 );
 
 
-CREATE TABLE purchase_history (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  customer_id INT  NOT NULL,
-  order_id INT NOT NULL,
-  purchase_date DATETIME NOT NULL,
-  total_amount DOUBLE NOT NULL,
-  FOREIGN KEY (customer_id) REFERENCES customer(id),
-  FOREIGN KEY (order_id) REFERENCES `order`(id)
-);
 

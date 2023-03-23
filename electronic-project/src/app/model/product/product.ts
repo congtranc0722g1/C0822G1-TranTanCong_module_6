@@ -9,6 +9,7 @@ export interface Product {
   createDay?: string;
   description?: string;
   price?: number;
+  entryPrice?: number;
   quantity?: number;
   flagDelete?: boolean;
   category?: Category;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../../service/product/product.service";
+import {ProductService} from "../../login/service/product/product.service";
 import {Product} from "../../model/product/product";
 
 @Component({
@@ -19,9 +19,6 @@ export class BodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ok() {
-    alert("thanks")
+    window.scroll(0,0)
   }
 }

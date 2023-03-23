@@ -4,13 +4,19 @@ import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { ProductCreateComponent } from './product-create/product-create.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
+import { ProductListManagerComponent } from './product-list-manager/product-list-manager.component';
 
 
 @NgModule({
-  declarations: [ProductListComponent, ProductDetailComponent],
+  declarations: [ProductListComponent, ProductDetailComponent, ProductCreateComponent, ProductEditComponent, ProductListManagerComponent],
   imports: [
     CommonModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ProductModule { }

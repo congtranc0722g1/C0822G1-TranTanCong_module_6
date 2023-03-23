@@ -13,7 +13,7 @@ public interface IUserService {
    List<User> findAll();
     Optional<User> findByUsername(String username);
 
-
+    User findById(int id);
     void updateUser(UpdateUserForm updateUserForm);
 
     void changePassword(String password,String username);

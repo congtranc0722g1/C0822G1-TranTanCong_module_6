@@ -104,4 +104,8 @@ public class AuthController {
                 userPrinciple.getDateOfBirth()
                 , userPrinciple.getAuthorities()));
     }
+    @RequestMapping("/profile/{id}")
+    public ResponseEntity<User> profile(@PathVariable("id") int id) {
+        return new ResponseEntity<>(iUserService.findById(id),HttpStatus.ACCEPTED);
+    }
 }

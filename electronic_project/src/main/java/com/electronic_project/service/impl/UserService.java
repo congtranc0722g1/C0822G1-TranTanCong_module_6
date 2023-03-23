@@ -24,6 +24,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User findById(int id) {
+        return iUserRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public void updateUser(UpdateUserForm updateUserForm) {
         iUserRepository.updateUser(updateUserForm.getName(),
                 updateUserForm.getPhoneNumber(),

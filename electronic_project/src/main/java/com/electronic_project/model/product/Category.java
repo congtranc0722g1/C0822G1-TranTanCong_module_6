@@ -9,6 +9,8 @@ public class Category {
     private Integer id;
     private String name;
     @Column(columnDefinition = "longtext")
+    private String avatar;
+    @Column(columnDefinition = "longtext")
     private String description;
 
     public Category() {
@@ -28,6 +30,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getDescription() {

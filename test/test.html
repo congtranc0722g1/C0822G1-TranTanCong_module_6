@@ -2,9 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="alo.css">
 </head>
 <body>
-$END$
+<div class="topbar__row">
+    <div class="topbar__item topbar__item--link">
+        <div class="topbar__item topbar__item--link">
+            <a class="topbar-link">Hỗ trợ trực tuyến:</a>
+        </div>
+        <div class="topbar__item topbar__item--link">
+            <a target="_blank" href="https://fb.com/taphoammo" class="topbar-link" style="color: #21bf73;">
+                <i class="footer-contacts__icon fab fa-facebook"></i>Tạp hóa MMO
+            </a>
+        </div>
+        <div class="topbar__item topbar__item--link">
+            <a class="topbar-link">
+                <i class="footer-contacts__icon far fa-envelope"></i>support@taphoammo.net
+            </a>
+        </div>
+        <div class="topbar__item topbar__item--link">
+            <a class="topbar-link"> <i class="footer-contacts__icon far fa-clock"></i>08:00am - 10:00pm</a>
+        </div>
+    </div>
+    <div class="topbar__spring"></div>
+    <div class="topbar__item">
+        <div class="topbar-dropdown">
+            <button class="topbar-dropdown__btn" type="button">
+                <a style="color: #ff2626;" href="/register.html">Đăng ký bán hàng</a>
+            </button>
+        </div>
+    </div>
+    <div class="topbar__item">
+        <div class="topbar-dropdown">
+            <button class="topbar-dropdown__btn" type="button">
+                <span>Ngôn ngữ:</span>
+                <span class="topbar__item-value text-uppercase">vi</span>
+                <svg width="7px" height="5px">
+                    <use xlink:href="/images/svg/sprite.svg#arrow-rounded-down-7x5"></use>
+                </svg>
+            </button>
+            <div class="topbar-dropdown__body">
+                <div class="menu menu--layout--topbar  menu--with-icons ">
+                    <div class="menu__submenus-container"></div>
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <div class="menu__item-submenu-offset"></div>
+                            <a class="menu__item-link" href="?lang=en">
+                                <div class="menu__item-icon"><img src="/images/icon/en.png" alt=""></div>
+                                English
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <div class="menu__item-submenu-offset"></div>
+                            <a class="menu__item-link" href="?lang=vi">
+                                <div class="menu__item-icon"><img src="/images/icon/vn.png" alt=""></div>
+                                Tiếng Việt
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

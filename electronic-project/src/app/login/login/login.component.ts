@@ -4,9 +4,9 @@ import {Router} from "@angular/router";
 // @ts-ignore
 import {Title} from "@angular/platform-browser";
 import {FormControl, FormGroup} from "@angular/forms";
-import {LoginService} from "../../service/login/login.service";
-import {TokenService} from "../../service/login/token.service";
-import {ShareService} from "../../service/login/share.service";
+import {LoginService} from "../service/login/login.service";
+import {TokenService} from "../service/login/token.service";
+import {ShareService} from "../service/login/share.service";
 
 
 // @ts-ignore
@@ -39,11 +39,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scroll(0,200)
     this.title.setTitle('Trang Đăng Nhập');
     this.islogged = this.token.isLogger();
     if (this.islogged) {
       this.router.navigateByUrl('/')
     }
+
   }
 
   login() {
@@ -56,8 +58,10 @@ export class LoginComponent implements OnInit {
           this.token.rememberMe(next.token, next.id, next.name, next.username, next.phoneNumber, next.email, next.address, next.age,
             next.gender, next.dateOfBirth, next.avatar, next.roles, 'session');
         }
+      this.token.setIsLoggedIn(next.name);
         this.share.sendClickEvent();
-        this.router.navigateByUrl('/')
+        // location.href='http://localhost:4200/'
+      this.router.navigateByUrl('/')
       }, error => {
         this.message = error.error.message
       }
