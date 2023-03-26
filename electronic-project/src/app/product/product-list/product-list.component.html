@@ -9,12 +9,12 @@
         <div (click)="searchSaleProductList(-1, trademark, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
           <input type="radio" checked name="category" class="custom-control-input" id="all">
           <label class="custom-control-label" for="all">Tất cả</label>
-          <span class="badge border font-weight-normal">{{totalElements}}</span>
+          <span class="badge border font-weight-normal">{{countProduct}} sản phẩm</span>
         </div>
         <div (click)="searchSaleProductList(category.id, trademark, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let category of categoryList">
           <input type="radio" name="category" class="custom-control-input" id="category{{category.id}}">
           <label class="custom-control-label" for="category{{category.id}}">{{category.name}}</label>
-          <span class="badge border font-weight-normal">150</span>
+          <span class="badge border font-weight-normal">{{category.total}} sản phẩm</span>
         </div>
       </div>
       <!-- Price End -->
@@ -26,33 +26,33 @@
           <div (click)="searchSaleProductList(category, -1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
             <input type="radio" checked name="trademark" value="-1" class="custom-control-input" id="all-trademark">
             <label class="custom-control-label" for="all-trademark">Tất cả</label>
-            <span class="badge border font-weight-normal">{{totalElements}}</span>
+            <span class="badge border font-weight-normal">{{countProduct}} sản phẩm</span>
           </div>
-          <div (click)="searchSaleProductList(category, 1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
-            <input type="radio" name="trademark" value="1"  class="custom-control-input" id="trademark1">
-            <label class="custom-control-label" for="trademark1">Microchip</label>
-            <span class="badge border font-weight-normal">150</span>
+          <div (click)="searchSaleProductList(category, trademark.id, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let trademark of trademarkList">
+            <input type="radio" name="trademark" value="1"  class="custom-control-input" id="trademark{{trademark.id}}">
+            <label class="custom-control-label" for="trademark{{trademark.id}}">{{trademark.name}}</label>
+              <span class="badge border font-weight-normal">{{trademark.total}} sản phẩm</span>
           </div>
-          <div (click)="searchSaleProductList(category, 2, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
-            <input type="radio" name="trademark" value="2"  class="custom-control-input" id="trademark2">
-            <label class="custom-control-label" for="trademark2">UGREEN</label>
-            <span class="badge border font-weight-normal">295</span>
-          </div>
-          <div (click)="searchSaleProductList(category, 3, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
-            <input type="radio" name="trademark" value="3"  class="custom-control-input" id="trademark3">
-            <label class="custom-control-label" for="trademark3">SENJU</label>
-            <span class="badge border font-weight-normal">246</span>
-          </div>
-          <div (click)="searchSaleProductList(category, 4, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
-            <input type="radio" name="trademark" value="4"  class="custom-control-input" id="trademark4">
-            <label class="custom-control-label" for="trademark4">LAIWANG</label>
-            <span class="badge border font-weight-normal">145</span>
-          </div>
-          <div (click)="searchSaleProductList(category, 5, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between acv">
-            <input type="radio" name="trademark" value="5"  class="custom-control-input" id="trademark5">
-            <label class="custom-control-label" for="trademark5">Samsung</label>
-            <span class="badge border font-weight-normal">168</span>
-          </div>
+<!--          <div (click)="searchSaleProductList(category, 2, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">-->
+<!--            <input type="radio" name="trademark" value="2"  class="custom-control-input" id="trademark2">-->
+<!--            <label class="custom-control-label" for="trademark2">UGREEN</label>-->
+<!--            <span class="badge border font-weight-normal">295</span>-->
+<!--          </div>-->
+<!--          <div (click)="searchSaleProductList(category, 3, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">-->
+<!--            <input type="radio" name="trademark" value="3"  class="custom-control-input" id="trademark3">-->
+<!--            <label class="custom-control-label" for="trademark3">SENJU</label>-->
+<!--            <span class="badge border font-weight-normal">246</span>-->
+<!--          </div>-->
+<!--          <div (click)="searchSaleProductList(category, 4, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">-->
+<!--            <input type="radio" name="trademark" value="4"  class="custom-control-input" id="trademark4">-->
+<!--            <label class="custom-control-label" for="trademark4">LAIWANG</label>-->
+<!--            <span class="badge border font-weight-normal">145</span>-->
+<!--          </div>-->
+<!--          <div (click)="searchSaleProductList(category, 5, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between acv">-->
+<!--            <input type="radio" name="trademark" value="5"  class="custom-control-input" id="trademark5">-->
+<!--            <label class="custom-control-label" for="trademark5">Samsung</label>-->
+<!--            <span class="badge border font-weight-normal">168</span>-->
+<!--          </div>-->
         </form>
       </div>
       <!-- Color End -->
@@ -64,6 +64,16 @@
     <div class="col-lg-9 col-md-12">
       <div class="row pb-3">
         <div class="col-12 pb-1">
+          <div>
+            <div *ngFor="let category1 of categoryList">
+              <div *ngIf="category1.id == category">
+                <h3>{{category1.name}}</h3>
+                <p>{{category1.description}}</p>
+              </div>
+            </div>
+            <h3 *ngIf="category == -1" class="mb-3">Sản phẩm</h3>
+
+          </div>
           <div class="d-flex align-items-center justify-content-between mb-4">
             <form>
               <div class="input-group">

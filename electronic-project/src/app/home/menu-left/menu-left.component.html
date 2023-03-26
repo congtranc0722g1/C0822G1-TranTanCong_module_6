@@ -1,0 +1,17 @@
+<div class="col-lg-3 d-none d-lg-block">
+  <div class="d-flex align-items-center justify-content-between w-100" style="height: 65px; margin-top: -1px; padding: 0 30px; background-color: #1a4988">
+    <h6 class="m-0 text-white">DANH MỤC SẢN PHẨM</h6>
+  </div>
+  <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
+    <div class="navbar-nav w-100 overflow-auto" style="height: 298px">
+      <a *ngFor="let category of categoryList" href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="{{category.avatar}}" height="23px" width="23px"></span> {{category.name}}</a>
+      <!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/cam-bien.png" height="23px" width="23px"></span> Cảm biến</a>-->
+      <!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span><img src="https://nshopvn.com/coloricons/den-led-dieu-khien-den-led.png" height="23px" width="23px"></span> Đèn LED, Điều khiển LED</a>-->
+      <!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-nang-luong-mat-troi-solar.png" height="23px" width="23px"></span> Điện năng lượng mặt trời</a>-->
+      <!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/module-mach-dien.png" height="23px" width="23px"></span> Module, Mạch điện</a>-->
+      <!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-dan-dung-va-cong-nghiep.png" height="23px" width="23px"></span> Điện dân dụng và Công nghiệp</a>-->
+      <!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/robot-phu-kien-diy.png" height="23px" width="23px"></span> Robot, Phụ kiện DIY</a>-->
+
+    </div>
+  </nav>
+</div>

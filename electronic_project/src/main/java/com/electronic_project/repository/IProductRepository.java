@@ -35,4 +35,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Transactional
     @Query(value = "insert into product(code, name, create_day, description, price, entry_price, quantity, flag_delete, category_id, trademark_id) value (:code, :name, :createDay, :description, :price, :entryPrice, :quantity, :flagDelete, :categoryId, :trademarkId)", nativeQuery = true)
     void addProduct(@Param("code") String code, @Param("name") String name, @Param("createDay") String createDay, @Param("description") String description, @Param("price") Double price, @Param("entryPrice") Double entryPrice, @Param("quantity") Integer quantiry, @Param("flagDelete") Boolean flagDelete, @Param("categoryId") Integer categoryId, @Param("trademarkId") Integer trademarkId);
+
+    @Query(value = "select count(*) from product", nativeQuery = true)
+    Integer countProduct();
 }

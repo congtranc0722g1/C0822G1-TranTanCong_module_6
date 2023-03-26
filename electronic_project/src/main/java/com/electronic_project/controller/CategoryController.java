@@ -1,6 +1,6 @@
 package com.electronic_project.controller;
 
-import com.electronic_project.model.product.Category;
+import com.electronic_project.dto.product.ICategoryListDto;
 import com.electronic_project.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,8 @@ public class CategoryController {
     private ICategoryService categoryService;
 
     @GetMapping("/list")
-    private ResponseEntity<List<Category>> showAll(){
-        List<Category> categoryList = categoryService.showAll();
+    private ResponseEntity<List<ICategoryListDto>> showAll(){
+        List<ICategoryListDto> categoryList = categoryService.showAll();
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 }

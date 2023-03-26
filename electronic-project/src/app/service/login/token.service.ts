@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Card} from "../../../model/sale/card";
+import {Card} from "../../model/sale/card";
 import {Observable, Subject} from "rxjs";
 
 const TOKEN = 'Token_key';

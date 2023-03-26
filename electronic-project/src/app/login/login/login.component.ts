@@ -4,9 +4,9 @@ import {Router} from "@angular/router";
 // @ts-ignore
 import {Title} from "@angular/platform-browser";
 import {FormControl, FormGroup} from "@angular/forms";
-import {LoginService} from "../service/login/login.service";
-import {TokenService} from "../service/login/token.service";
-import {ShareService} from "../service/login/share.service";
+import {LoginService} from "../../service/login/login.service";
+import {TokenService} from "../../service/login/token.service";
+import {ShareService} from "../../service/login/share.service";
 
 
 // @ts-ignore

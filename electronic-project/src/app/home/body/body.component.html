@@ -9,13 +9,13 @@
       </div>
       <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
         <div class="navbar-nav w-100 overflow-auto" style="height: 298px">
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/arduino.png" height="23px" width="23px"></span> Arduino</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/cam-bien.png" height="23px" width="23px"></span> Cảm biến</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span><img src="https://nshopvn.com/coloricons/den-led-dieu-khien-den-led.png" height="23px" width="23px"></span> Đèn LED, Điều khiển LED</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-nang-luong-mat-troi-solar.png" height="23px" width="23px"></span> Điện năng lượng mặt trời</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/module-mach-dien.png" height="23px" width="23px"></span> Module, Mạch điện</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-dan-dung-va-cong-nghiep.png" height="23px" width="23px"></span> Điện dân dụng và Công nghiệp</a>
-          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/robot-phu-kien-diy.png" height="23px" width="23px"></span> Robot, Phụ kiện DIY</a>
+          <a *ngFor="let category of categoryList" href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="{{category.avatar}}" height="23px" width="23px"></span> {{category.name}}</a>
+<!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/cam-bien.png" height="23px" width="23px"></span> Cảm biến</a>-->
+<!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span><img src="https://nshopvn.com/coloricons/den-led-dieu-khien-den-led.png" height="23px" width="23px"></span> Đèn LED, Điều khiển LED</a>-->
+<!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-nang-luong-mat-troi-solar.png" height="23px" width="23px"></span> Điện năng lượng mặt trời</a>-->
+<!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/module-mach-dien.png" height="23px" width="23px"></span> Module, Mạch điện</a>-->
+<!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/dien-dan-dung-va-cong-nghiep.png" height="23px" width="23px"></span> Điện dân dụng và Công nghiệp</a>-->
+<!--          <a href="" class="nav-item nav-link text-dark btn-outline-danger"><span> <img src="https://nshopvn.com/coloricons/robot-phu-kien-diy.png" height="23px" width="23px"></span> Robot, Phụ kiện DIY</a>-->
 
         </div>
       </nav>
@@ -50,31 +50,31 @@
 </div>
 <!-- Navbar End -->
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch static backdrop modal
-</button>
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
+<!--  Launch static backdrop modal-->
+<!--</button>-->
 
 <!-- Modal -->
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        ...-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--        <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 <!-- Featured Start -->
 <div class="container-fluid pt-5">
@@ -115,11 +115,11 @@
   <div class="row px-xl-5 pb-3">
     <div class="col-lg-3 col-md-6 col-sm-12 pb-1" *ngFor="let latestProduct of latestProductList" [routerLink]="['/detail', latestProduct.id]">
       <div class="card product-item border-0 mb-4" style="height: 400px">
-        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-          <img class="img-fluid h-100 w-100" src="{{latestProduct.images[0].url}}" alt="Đang cập nhật">
+        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 250px">
+          <img *ngIf="latestProduct.images[0]" class="img-fluid h-100 w-100" src="{{latestProduct.images[0].url}}" alt="Đang cập nhật">
         </div>
-        <div class="card-body border-bottom border-left border-right text-center p-0 pt-4 pb-3">
-          <div class="h-50">
+        <div class="card-body border-bottom border-left border-right text-center p-0 pt-4 pb-3" style="height: 150px">
+          <div style="height: 100px">
             <h6 class="mb-3 ml-3 mr-3" style="text-align: left">{{latestProduct.name | slice:0:45}}</h6>
           </div>
           <div class="d-flex justify-content-center mb-5">

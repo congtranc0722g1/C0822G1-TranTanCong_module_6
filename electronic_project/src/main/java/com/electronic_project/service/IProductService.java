@@ -21,4 +21,6 @@ public interface IProductService {
     Product findProduct(Integer id);
 
     void addProduct(String code, String name, String createDay, String description, Double price, Double entryPrice, Integer quantiry, Boolean flagDelete, Integer categoryId, Integer trademarkId);
+
+    Integer countProduct();
 }

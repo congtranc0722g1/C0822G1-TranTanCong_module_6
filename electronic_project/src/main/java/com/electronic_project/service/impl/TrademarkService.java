@@ -1,6 +1,6 @@
 package com.electronic_project.service.impl;
 
-import com.electronic_project.model.product.Trademark;
+import com.electronic_project.dto.product.ITrademarkListDto;
 import com.electronic_project.repository.ITrademarkRepository;
 import com.electronic_project.service.ITrademarkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class TrademarkService implements ITrademarkService {
     private ITrademarkRepository trademarkRepository;
 
     @Override
-    public List<Trademark> showAll() {
+    public List<ITrademarkListDto> showAll() {
         return trademarkRepository.showAll();
     }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../../login/service/product/product.service";
+import {ProductService} from "../../service/product/product.service";
 import {Product} from "../../model/product/product";
+import {Category} from "../../model/product/category";
+import {CategoryService} from "../../service/product/category.service";
 
 @Component({
   selector: 'app-body',
@@ -11,10 +13,16 @@ export class BodyComponent implements OnInit {
 
   latestProductList: Product[] = [];
 
-  constructor(private productService: ProductService) {
+  categoryList: Category[] =[];
+
+  constructor(private productService: ProductService, private categoryService: CategoryService) {
     this.productService.showLatestProductList().subscribe(next => {
       console.log(next)
       this.latestProductList = next;
+    });
+
+    this.categoryService.showAll().subscribe(next =>{
+      this.categoryList = next;
     })
   }
 

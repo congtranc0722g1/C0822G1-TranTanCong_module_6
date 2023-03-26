@@ -85,4 +85,10 @@ public class ProductController {
         productService.addProduct(product.getCode(), product.getName(), product.getCreateDay(), product.getDescription(), product.getPrice(), product.getEntryPrice(), product.getQuantity(), product.getFlagDelete(), product.getCategory().getId(), product.getTrademark().getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/count-product")
+    private ResponseEntity<Integer> countProduct(){
+        Integer countProduct = productService.countProduct();
+        return new ResponseEntity<>(countProduct, HttpStatus.OK);
+    }
 }

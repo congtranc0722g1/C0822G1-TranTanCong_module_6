@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../../login/service/product/product.service";
+import {ProductService} from "../../service/product/product.service";
 import {Product} from "../../model/product/product";
 import {FormGroup} from "@angular/forms";
 import {Category} from "../../model/product/category";
-import {CategoryService} from "../../login/service/product/category.service";
+import {CategoryService} from "../../service/product/category.service";
+import {Trademark} from "../../model/product/trademark";
+import {TrademarkService} from "../../service/product/trademark.service";
 
 
 @Component({
@@ -19,10 +21,11 @@ export class ProductListComponent implements OnInit {
   category = -1;
   saleProductList: Product[] = [];
   nameSearch = '';
-  totalElements = 0;
   categoryList: Category[] = [];
+  trademarkList: Trademark[] = [];
+  countProduct: number;
 
-  constructor(private productService: ProductService, private categoryService: CategoryService) {
+  constructor(private productService: ProductService, private categoryService: CategoryService, private  trademarkService: TrademarkService) {
   }
 
   ngOnInit(): void {
@@ -31,6 +34,15 @@ export class ProductListComponent implements OnInit {
 
     this.categoryService.showAll().subscribe(next => {
       this.categoryList = next;
+      console.log("Ok" + next)
+    });
+
+    this.trademarkService.showAll().subscribe(next => {
+      this.trademarkList = next;
+    });
+
+    this.productService.countProduct().subscribe(next => {
+      this.countProduct = next;
     })
   }
 
@@ -40,7 +52,6 @@ export class ProductListComponent implements OnInit {
       this.trademark = trademark;
       this.nameSearch = name;
       this.saleProductList = next['content'];
-      this.totalElements = next['totalElements']
       console.log(next)
     })
   }

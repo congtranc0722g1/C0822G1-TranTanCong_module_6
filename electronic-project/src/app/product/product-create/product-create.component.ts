@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {CategoryService} from "../../login/service/product/category.service";
-import {TrademarkService} from "../../login/service/product/trademark.service";
+import {CategoryService} from "../../service/product/category.service";
+import {TrademarkService} from "../../service/product/trademark.service";
 import {Category} from "../../model/product/category";
 import {Trademark} from "../../model/product/trademark";
-import {ProductService} from "../../login/service/product/product.service";
+import {ProductService} from "../../service/product/product.service";
 
 @Component({
   selector: 'app-product-create',

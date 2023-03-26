@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Product} from "../../../model/product/product";
+import {Product} from "../../model/product/product";
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +27,9 @@ export class ProductService {
 
   addProduct(product: Product){
     return this.httpClient.post("http://localhost:8080/product/add", product)
+  }
+
+  countProduct(){
+    return this.httpClient.get<number>("http://localhost:8080/product/count-product/");
   }
 }

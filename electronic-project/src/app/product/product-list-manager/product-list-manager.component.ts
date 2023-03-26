@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../../login/service/product/product.service";
+import {ProductService} from "../../service/product/product.service";
 import {Product} from "../../model/product/product";
-import {CategoryService} from "../../login/service/product/category.service";
-import {TrademarkService} from "../../login/service/product/trademark.service";
+import {CategoryService} from "../../service/product/category.service";
+import {TrademarkService} from "../../service/product/trademark.service";
 import {Category} from "../../model/product/category";
 import {Trademark} from "../../model/product/trademark";
 

@@ -1,6 +1,6 @@
 package com.electronic_project.service.impl;
 
-import com.electronic_project.model.product.Category;
+import com.electronic_project.dto.product.ICategoryListDto;
 import com.electronic_project.repository.ICategoryRepository;
 import com.electronic_project.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class CategoryService implements ICategoryService {
     private ICategoryRepository categoryRepository;
 
     @Override
-    public List<Category> showAll() {
+    public List<ICategoryListDto> showAll() {
         return categoryRepository.showAll();
     }
 }

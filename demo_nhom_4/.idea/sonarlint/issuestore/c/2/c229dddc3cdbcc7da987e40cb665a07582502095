@@ -1,0 +1,11 @@
+
+0
+java:S1220""Move this file to a named package.
+q
+java:S2159"VRemove this call to "equals"; comparisons between unrelated types always return false.(Òþž’ýÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(†²óì
+_
+java:S1858"D"s" is already a string, there's no need to call "toString()" on it.(›¨¹£úÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(æúÑ•
+N	java:S106
+"9Replace this use of System.out or System.err by a logger.(É‰íû

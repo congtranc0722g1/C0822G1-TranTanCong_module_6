@@ -51,4 +51,9 @@ public class ProductService implements IProductService {
     public void addProduct(String code, String name, String createDay, String description, Double price, Double entryPrice, Integer quantiry, Boolean flagDelete, Integer categoryId, Integer trademarkId) {
         productRepository.addProduct(code, name, createDay, description, price, entryPrice, quantiry, flagDelete, categoryId, trademarkId);
     }
+
+    @Override
+    public Integer countProduct() {
+        return productRepository.countProduct();
+    }
 }

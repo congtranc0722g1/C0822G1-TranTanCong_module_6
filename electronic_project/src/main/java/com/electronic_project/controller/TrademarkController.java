@@ -1,5 +1,6 @@
 package com.electronic_project.controller;
 
+import com.electronic_project.dto.product.ITrademarkListDto;
 import com.electronic_project.model.product.Trademark;
 import com.electronic_project.service.ITrademarkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class TrademarkController {
     private ITrademarkService trademarkService;
 
     @GetMapping("/list")
-    private ResponseEntity<List<Trademark>> showAll(){
-        List<Trademark> trademarkList = trademarkService.showAll();
+    private ResponseEntity<List<ITrademarkListDto>> showAll(){
+        List<ITrademarkListDto> trademarkList = trademarkService.showAll();
         return new ResponseEntity<>(trademarkList, HttpStatus.OK);
     }
 }

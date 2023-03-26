@@ -1,10 +1,10 @@
 package com.electronic_project.service;
 
-import com.electronic_project.model.product.Category;
+import com.electronic_project.dto.product.ICategoryListDto;
 
 import java.util.List;
 
 public interface ICategoryService {
 
-    List<Category> showAll();
+    List<ICategoryListDto> showAll();
 }
