@@ -1,0 +1,8 @@
+
+0
+java:S1220""Move this file to a named package.
+{
+java:S1210
+"YOverride "equals(Object obj)" to comply with the contract of the "compareTo(T o)" method.(ËÊŞ¾øÿÿÿÿ8ÎåÃ‘ò0
+I
+java:S1068"'Remove this unused "ten" private field.(™îìÔøÿÿÿÿ8ÕåÃ‘ò0

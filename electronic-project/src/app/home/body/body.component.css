@@ -1,1 +1,21 @@
 
+.home .section-title-normal {
+  background: #ececec;
+  border-bottom: unset;
+}
+.section-title-normal {
+  border-bottom: 2px solid #ececec;
+}
+.section-title {
+  position: relative;
+  -js-display: flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+}

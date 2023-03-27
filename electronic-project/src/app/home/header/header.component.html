@@ -1,24 +1,31 @@
 <div class="container-fluid">
   <div class="row align-items-center py-1 px-xl-5" >
-    <div class="col-lg-4 col-4 justify-content-lg-start">
-      <a href="" class="text-decoration-none">
+    <div class="col-lg-2 col-2 justify-content-lg-start">
+      <a routerLink="" class="text-decoration-none">
         <h1 class="m-0 display-5 font-weight-semi-bold"><span
           class="text-primary font-weight-bold mr-1"><img src="assets/image/logodz.png" height="50px"
                                                           width="100px"></span></h1>
       </a>
     </div>
-    <div class="col-lg-5 col-5">
-      <div class="justify-content-end d-flex">
+    <div class="col-lg-7 col-7">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Nhập tên sản phẩm">
+        <div class="input-group-append">
+                                        <span class="input-group-text text-primary" style="background-color: white">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+        </div>
       </div>
     </div>
 
     <div class="col-lg-3 col-3 text-right">
       <div class="dropdown justify-content-end d-flex">
-        <div style="cursor: pointer;font-size: 20px;font-weight: bold;color: white" *ngIf="isLogged == false" routerLink="/login">Đăng nhập</div>
+        <div style="cursor: pointer;font-size: 20px;font-weight: bold;color: darkblue" *ngIf="isLogged == false" routerLink="/login">Đăng nhập</div>
         <div *ngIf="isLogged == true"  style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="{{user.avatar}}" style="width: 40px;height: 40px;border-radius: 50%;border: 1px solid #10707f">
+          <img src="{{user.avatar}}" style="width: 30px;height: 30px;border-radius: 50%;border: 1px solid #10707f">
+<!--          <span class="ml-1" style="font-weight: bold">{{user.name | uppercase}}</span>-->
         </div>
-        <div *ngIf="close" style="z-index: 9999; position: relative; margin-right: 100px" class="dropdown-menu container-fluid" aria-labelledby="dropdownMenuButton">
+        <div *ngIf="isLogged == true" style="z-index: 9999; position: relative; margin-right: 100px" class="dropdown-menu container-fluid" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" data-dismiss="dropdown" aria-disabled="true" href="#">Hồ sơ</a>
           <a class="dropdown-item" href="#">Đơn hàng</a>
           <a  class="dropdown-item" style="cursor: pointer;z-index: 30;padding-bottom: 10px" (click)="logout()">Đăng xuất</a>
@@ -40,10 +47,10 @@
           <div class="ml-0 collapse navbar-collapse justify-content-between sticky-top" style="background-color: #1a4988" id="navbarCollapse"
                style="background-color: #1a4988">
             <div class="navbar-nav mr-auto py-0 pr-0">
-              <a href="index.html" class="nav-item nav-link text-white btn-outline-danger">Trang chủ</a>
-              <a href="detail.html" class="nav-item nav-link text-white btn-outline-danger">Giới thiệu</a>
+              <a routerLink="" class="nav-item nav-link text-white btn-outline-danger">Trang chủ</a>
+              <a class="nav-item nav-link text-white btn-outline-danger">Giới thiệu</a>
               <a routerLink="/product" class="nav-item nav-link text-white btn-outline-danger">Sản phẩm</a>
-              <a href="contact.html" class="nav-item nav-link text-white btn-outline-danger">Liên hệ</a>
+              <a class="nav-item nav-link text-white btn-outline-danger">Liên hệ</a>
               <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle text-white btn-outline-danger" data-toggle="dropdown">Quản lý</a>
                 <div class="dropdown-menu rounded-0 m-0">

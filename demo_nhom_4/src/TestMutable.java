@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Main {
+class Demo {
     public static void main(String[] args) {
         String[] array = {"mèo", "chó", "gà", "mèo", "trâu", "chó"};
         System.out.println("Chưa loại bỏ trùng lặp: " + Arrays.toString(array));

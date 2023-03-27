@@ -4,7 +4,6 @@ import {User} from "../../model/user/user";
 import {LoginService} from "../../service/login/login.service";
 import {ShareService} from "../../service/login/share.service";
 import {Router} from "@angular/router";
-import {async} from "@angular/core/testing";
 
 
 @Component({

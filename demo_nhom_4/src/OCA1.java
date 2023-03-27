@@ -4,7 +4,7 @@ public class OCA1 {
         ta = ta.concat("B ");
         String tb = "C ";
         ta = ta.concat(tb);
-        ta.replace('C', 'D');
+        ta = ta.replace('C', 'D');
         ta = ta.concat(tb);
         System.out.println(ta);
     }

@@ -6,13 +6,13 @@
       <!-- Price Start -->
       <div class="border-bottom mb-4 pb-4">
         <h5 class="font-weight-semi-bold mb-4">Danh mục sản phẩm</h5>
-        <div (click)="searchSaleProductList(-1, trademark, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+        <div (click)="searchSaleProductList(-1, trademark1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
           <input type="radio" checked name="category" class="custom-control-input" id="all">
           <label class="custom-control-label" for="all">Tất cả</label>
           <span class="badge border font-weight-normal">{{countProduct}} sản phẩm</span>
         </div>
-        <div (click)="searchSaleProductList(category.id, trademark, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let category of categoryList">
-          <input type="radio" name="category" class="custom-control-input" id="category{{category.id}}">
+        <div (click)="searchSaleProductList(category.id, trademark1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let category of categoryList">
+          <input [checked]="category.id == category1" type="radio" name="category" class="custom-control-input" id="category{{category.id}}">
           <label class="custom-control-label" for="category{{category.id}}">{{category.name}}</label>
           <span class="badge border font-weight-normal">{{category.total}} sản phẩm</span>
         </div>
@@ -23,12 +23,12 @@
       <div class="border-bottom mb-4 pb-4">
         <h5 class="font-weight-semi-bold mb-4">Thương hiệu</h5>
         <form>
-          <div (click)="searchSaleProductList(category, -1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+          <div (click)="searchSaleProductList(category1, -1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
             <input type="radio" checked name="trademark" value="-1" class="custom-control-input" id="all-trademark">
             <label class="custom-control-label" for="all-trademark">Tất cả</label>
             <span class="badge border font-weight-normal">{{countProduct}} sản phẩm</span>
           </div>
-          <div (click)="searchSaleProductList(category, trademark.id, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let trademark of trademarkList">
+          <div (click)="searchSaleProductList(category1, trademark.id, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let trademark of trademarkList">
             <input type="radio" name="trademark" value="1"  class="custom-control-input" id="trademark{{trademark.id}}">
             <label class="custom-control-label" for="trademark{{trademark.id}}">{{trademark.name}}</label>
               <span class="badge border font-weight-normal">{{trademark.total}} sản phẩm</span>
@@ -65,13 +65,13 @@
       <div class="row pb-3">
         <div class="col-12 pb-1">
           <div>
-            <div *ngFor="let category1 of categoryList">
-              <div *ngIf="category1.id == category">
-                <h3>{{category1.name}}</h3>
-                <p>{{category1.description}}</p>
+            <div *ngFor="let category2 of categoryList">
+              <div *ngIf="category2.id == category1">
+                <h3>{{category2.name}}</h3>
+                <p>{{category2.description}}</p>
               </div>
             </div>
-            <h3 *ngIf="category == -1" class="mb-3">Sản phẩm</h3>
+            <h3 *ngIf="category1 == -1" class="mb-3">Sản phẩm</h3>
 
           </div>
           <div class="d-flex align-items-center justify-content-between mb-4">
@@ -79,7 +79,7 @@
               <div class="input-group">
                 <input type="text" #name class="form-control" placeholder="Nhập tên sản phẩm">
                 <div class="input-group-append">
-                                        <button class="input-group-text bg-transparent text-primary" (click)="searchSaleProductList(category, trademark, name.value)">
+                                        <button class="input-group-text bg-transparent text-primary" (click)="searchSaleProductList(category1, trademark1, name.value)">
                                             <i class="fa fa-search"></i>
                                         </button>
                 </div>

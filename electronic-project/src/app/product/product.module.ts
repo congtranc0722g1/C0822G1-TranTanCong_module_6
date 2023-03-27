@@ -12,12 +12,15 @@ import { ImageCreateComponent } from './image-create/image-create.component';
 
 
 @NgModule({
-  declarations: [ProductListComponent, ProductDetailComponent, ProductCreateComponent, ProductEditComponent, ProductListManagerComponent, ImageCreateComponent],
-  imports: [
-    CommonModule,
-    ProductRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    declarations: [ProductListComponent, ProductDetailComponent, ProductCreateComponent, ProductEditComponent, ProductListManagerComponent, ImageCreateComponent],
+    exports: [
+        ProductListComponent
+    ],
+    imports: [
+        CommonModule,
+        ProductRoutingModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class ProductModule { }
