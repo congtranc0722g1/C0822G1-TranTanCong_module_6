@@ -1,6 +1,8 @@
 package com.electronic_project.model.purchase;
 
+import com.electronic_project.model.product.Product;
 import com.electronic_project.model.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +13,7 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String code;
+    @Column(columnDefinition = "date")
     private String orderDate;
     private String status;
 
@@ -19,6 +22,7 @@ public class Purchase {
     private User user;
 
     @OneToMany(mappedBy = "purchase")
+    @JsonBackReference
     private List<PurchaseDetail> purchaseDetails;
 
     public Purchase() {

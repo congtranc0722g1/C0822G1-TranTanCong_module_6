@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnChanges, OnDestroy} from '@angular/core';
 import {ProductService} from "../../service/product/product.service";
 import {Product} from "../../model/product/product";
 import {FormGroup} from "@angular/forms";
@@ -7,6 +7,7 @@ import {CategoryService} from "../../service/product/category.service";
 import {Trademark} from "../../model/product/trademark";
 import {TrademarkService} from "../../service/product/trademark.service";
 import {SearchProductService} from "../../service/product/search-product.service";
+import {HeaderComponent} from "../../home/header/header.component";
 
 
 @Component({
@@ -14,7 +15,7 @@ import {SearchProductService} from "../../service/product/search-product.service
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   page: number = 0;
   totalPage: number = 0;
   size: number = 0;
@@ -25,13 +26,15 @@ export class ProductListComponent implements OnInit {
   categoryList: Category[] = [];
   trademarkList: Trademark[] = [];
   countProduct: number;
-  @Input() idCategory: number;
-  sendCategory: number;
 
   constructor(private productService: ProductService, private categoryService: CategoryService, private  trademarkService: TrademarkService, private searchProductService: SearchProductService) {
     this.searchProductService.currentMessage.subscribe(next => {
       this.category1 = next;
     })
+    this.searchProductService.searchCategory.subscribe(next => {
+      this.nameSearch = next;
+    })
+    this.checkHidden(false);
   }
 
   ngOnInit(): void {
@@ -40,7 +43,6 @@ export class ProductListComponent implements OnInit {
 
     this.categoryService.showAll().subscribe(next => {
       this.categoryList = next;
-      console.log("Ok" + next)
     });
 
     this.trademarkService.showAll().subscribe(next => {
@@ -58,7 +60,16 @@ export class ProductListComponent implements OnInit {
       this.trademark1 = trademark;
       this.nameSearch = name;
       this.saleProductList = next['content'];
+      // this.searchProductService.searchNameCategory('');
       console.log(next)
     })
+  }
+
+  checkHidden(check: boolean){
+    this.searchProductService.setHidden(check)
+  }
+
+  ngOnDestroy(): void {
+    this.checkHidden(true);
   }
 }

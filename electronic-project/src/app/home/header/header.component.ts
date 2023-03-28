@@ -4,6 +4,8 @@ import {User} from "../../model/user/user";
 import {LoginService} from "../../service/login/login.service";
 import {ShareService} from "../../service/login/share.service";
 import {Router} from "@angular/router";
+import {SearchProductService} from "../../service/product/search-product.service";
+import {Product} from "../../model/product/product";
 
 
 @Component({
@@ -16,7 +18,15 @@ export class HeaderComponent implements OnInit {
   isLogged = false;
   close = true;
   name: '';
-  constructor(private router:Router,private token:TokenService,private loginService:LoginService,private share:ShareService) {
+  temp: string = '';
+  productList: Product[] = [];
+  isHidden: boolean = true;
+  constructor(private router:Router,
+              private token:TokenService,
+              private loginService:LoginService,
+              private share:ShareService,
+              private searchProductService: SearchProductService) {
+
     this.token.getUserNameLoggedIn().subscribe(next => {this.name = next
       this.isLogged = this.token.isLogger();
       this.loader();
@@ -24,6 +34,10 @@ export class HeaderComponent implements OnInit {
         this.loader()
       })
     });
+
+    this.searchProductService.checkHidden.subscribe(next => {
+      this.isHidden = next;
+    })
   }
 
   ngOnInit(): void {
@@ -58,5 +72,9 @@ export class HeaderComponent implements OnInit {
         }
       )
     }
+  }
+  searchName(name: string){
+    this.router.navigateByUrl('/product');
+    this.searchProductService.searchNameCategory(name);
   }
 }

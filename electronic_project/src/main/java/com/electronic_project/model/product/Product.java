@@ -1,6 +1,8 @@
 package com.electronic_project.model.product;
 
+import com.electronic_project.model.purchase.Purchase;
 import com.electronic_project.model.purchase.PurchaseDetail;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,6 +36,7 @@ public class Product {
     private List<Image> images;
 
     @OneToMany(mappedBy = "product")
+    @JsonBackReference
     private List<PurchaseDetail> purchaseDetails;
 
     public Product() {

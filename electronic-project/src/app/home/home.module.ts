@@ -7,6 +7,7 @@ import { BodyComponent } from './body/body.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import {ProductModule} from "../product/product.module";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {ProductModule} from "../product/product.module";
     imports: [
         CommonModule,
         HomeRoutingModule,
-        ProductModule
+        ProductModule,
+        FormsModule
     ]
 })
 export class HomeModule { }

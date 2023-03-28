@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Card} from "../../model/sale/card";
+import {Cart} from "../../model/cart/cart";
 import {Observable, Subject} from "rxjs";
 
 const TOKEN = 'Token_key';
@@ -21,7 +21,7 @@ const CART = 'Cart_key';
 })
 export class TokenService {
   json = '';
-  cart: Card[];
+  cart: Cart[];
 
   isLoggedIn = false;
   isLoggedInObservable = new Subject<boolean>();
@@ -46,17 +46,9 @@ export class TokenService {
       return sessionStorage.getItem(STORAGE);
     }
   }
-  public setCart(cart: Card[]) {
+  public setCart(cart: Cart[]) {
     sessionStorage.removeItem(CART);
     sessionStorage.setItem(CART,JSON.stringify(cart));
-  }
-  public upQuantity(id: number,carts: Card[]) {
-    for (let i = 0; i < carts.length; i++) {
-      if (carts[i].id == id) {
-        carts[i].quantity += 1;
-        break
-      }
-    }
   }
   public checkExist(name: string) {
     console.log(name)

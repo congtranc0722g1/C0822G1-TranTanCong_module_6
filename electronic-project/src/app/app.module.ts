@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoginModule} from "./login/login.module";
 import {ProductModule} from "./product/product.module";
+import {CartModule} from "./cart/cart.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {ProductModule} from "./product/product.module";
     ReactiveFormsModule,
     FormsModule,
     LoginModule,
-    ProductModule
+    ProductModule,
+    CartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 package com.electronic_project.model.user;
 
 import com.electronic_project.model.purchase.Purchase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +36,7 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Purchase> purchases;
 
     public User() {

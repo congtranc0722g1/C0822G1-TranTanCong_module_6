@@ -1,7 +1,6 @@
 package com.electronic_project.model.purchase;
 
 import com.electronic_project.model.product.Product;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ public class PurchaseDetail {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "purchases_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "purchase_id", nullable = false, referencedColumnName = "id")
     private Purchase purchase;
 
     @ManyToOne

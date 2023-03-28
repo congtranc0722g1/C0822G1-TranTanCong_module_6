@@ -3,7 +3,6 @@ package com.electronic_project.dto.product;
 import com.electronic_project.model.product.Category;
 import com.electronic_project.model.product.Image;
 import com.electronic_project.model.product.Trademark;
-import com.electronic_project.model.purchase.PurchaseDetail;
 
 import java.util.List;
 
@@ -20,7 +19,6 @@ public class ProductDto {
     private Category category;
     private Trademark trademark;
     private List<Image> images;
-    private List<PurchaseDetail> purchaseDetails;
 
     public ProductDto() {
     }
@@ -119,13 +117,5 @@ public class ProductDto {
 
     public void setImages(List<Image> images) {
         this.images = images;
-    }
-
-    public List<PurchaseDetail> getPurchaseDetails() {
-        return purchaseDetails;
-    }
-
-    public void setPurchaseDetails(List<PurchaseDetail> purchaseDetails) {
-        this.purchaseDetails = purchaseDetails;
     }
 }

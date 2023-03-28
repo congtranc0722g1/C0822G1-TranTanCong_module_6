@@ -1,7 +1,7 @@
-export interface Card {
-  id?: number;
+export interface Cart {
   name?: string;
-  image?: string;
   price?: number;
   quantity?: number;
+  total?: number;
+  url?: string;
 }
