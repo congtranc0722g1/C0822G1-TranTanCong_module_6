@@ -17,23 +17,19 @@ export class CartComponent implements OnInit {
   isLogged = false;
   quantityAcv: number = 0;
   cartList: Cart[] = [];
-  totalPayment: number = 0;
+  totalPayment: number;
 
 
   constructor(private loginService: LoginService, private token:TokenService, private cartService: CartService,
               private share: ShareService) {
-    this.token.getUserNameLoggedIn().subscribe(next => {this.name = next
-      this.isLogged = this.token.isLogger();
-      this.loader();
-      this.share.getClickEvent().subscribe(next => {
-        this.loader()
-      })
-    });
+    // if (this.token.getId() != null){
+    //
+    // }
   }
 
   ngOnInit(): void {
-    this.getCart(2);
-    this.totalPayment = this.cartList.reduce((acc, item) => acc + item.total, 0);
+    this.getCart(+this.token.getId());
+    this.getTotalPayment(+this.token.getId());
   }
 
   increaseQuantity() {
@@ -61,6 +57,12 @@ export class CartComponent implements OnInit {
     this.cartService.getCard(id).subscribe(next => {
       this.cartList = next;
       console.log(next)
+    })
+  }
+
+  getTotalPayment(id: number){
+    this.cartService.getTotalPayment(id).subscribe(next => {
+      this.totalPayment = next;
     })
   }
 

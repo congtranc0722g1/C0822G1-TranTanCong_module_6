@@ -1,11 +1,0 @@
-
-0
-java:S1220""Move this file to a named package.
-S	java:S106"9Replace this use of System.out or System.err by a logger.(­ËÖşÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(–ˆĞ»ıÿÿÿÿ
-N	java:S106	"9Replace this use of System.out or System.err by a logger.(†²óì
-_
-java:S1858
-"D"s" is already a string, there's no need to call "toString()" on it.(›¨¹£úÿÿÿÿ
-N	java:S106"9Replace this use of System.out or System.err by a logger.(æúÑ•
-U	java:S106"9Replace this use of System.out or System.err by a logger.(É‰íû8¬¼Ó†ò0

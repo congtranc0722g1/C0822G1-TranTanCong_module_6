@@ -3,14 +3,42 @@ package com.electronic_project.repository;
 import com.electronic_project.dto.cart.ICartDto;
 import com.electronic_project.model.purchase.PurchaseDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface ICartRepository extends JpaRepository<PurchaseDetail, Integer> {
 
-    @Query(value = "select image.url , product.name, product.price, purchase_detail.quantity, (ifnull(product.price, 0) * ifnull(purchase_detail.quantity, 0)) as total from purchase_detail join product on purchase_detail.product_id = product.id join image on product.id = image.product_id join purchase on purchase_detail.purchase_id = purchase.id join\n" +
-            "user on purchase.user_id = user.id where user.id = :id group by product.id", nativeQuery = true)
+    @Query(value = "SELECT image.url, product.name, product.price, (SELECT SUM(quantity) FROM purchase_detail WHERE purchase_detail.product_id = product.id) AS quantity\n" +
+            ", (IFNULL(product.price, 0) * (SELECT SUM(quantity) FROM purchase_detail WHERE purchase_detail.product_id = product.id)) AS total \n" +
+            "FROM purchase_detail \n" +
+            "JOIN product ON purchase_detail.product_id = product.id \n" +
+            "JOIN image ON product.id = image.product_id \n" +
+            "JOIN purchase ON purchase_detail.purchase_id = purchase.id \n" +
+            "JOIN user ON purchase.user_id = user.id \n" +
+            "WHERE user.id = :id \n" +
+            "GROUP BY product.id", nativeQuery = true)
     List<ICartDto> getCart(@Param("id") Integer id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into purchase_detail(quantity, product_id, purchase_id) values (:quantity, :productId, :purchaseId)", nativeQuery = true)
+    void addCart(@Param("quantity") Integer quantity, @Param("productId") Integer productId, @Param("purchaseId") Integer purchaseId);
+
+//    @Modifying
+//    @Transactional
+//    @Query(value = "update purchase_detail set quantity = :quantity where product_id = :productId and purchase_id = :purchaseId", nativeQuery = true)
+//    void updateCart(@Param("quantity") Integer quantity, @Param("productId") Integer productId, @Param("purchaseId") Integer purchaseId);
+
+    @Query(value = "SELECT sum((IFNULL(product.price, 0) * IFNULL(purchase_detail.quantity, 0))) AS total \n" +
+            "FROM purchase_detail \n" +
+            "JOIN product ON purchase_detail.product_id = product.id \n" +
+            "JOIN purchase ON purchase_detail.purchase_id = purchase.id \n" +
+            "JOIN user ON purchase.user_id = user.id \n" +
+            "WHERE user.id = :id", nativeQuery = true)
+    Double getTotalPayment(@Param("id") Integer id);
+
 }

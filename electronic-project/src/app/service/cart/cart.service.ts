@@ -12,4 +12,12 @@ export class CartService {
   getCard(id: number){
    return this.httpClient.get<Cart[]>("http://localhost:8080/cart/list?id=" + id)
   }
+
+  addCart(userId: number, productId: number, quantity: number){
+    return this.httpClient.post("http://localhost:8080/cart/add", {userId : userId, productId: productId, quantity: quantity})
+  }
+
+  getTotalPayment(id: number){
+    return this.httpClient.get<number>("http://localhost:8080/cart/total-payment?id=" + id)
+  }
 }
