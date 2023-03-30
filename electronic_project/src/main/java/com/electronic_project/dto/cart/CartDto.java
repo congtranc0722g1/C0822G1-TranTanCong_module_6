@@ -1,11 +1,11 @@
 package com.electronic_project.dto.cart;
 
-public class AddCartDto {
+public class CartDto {
     Integer userId;
     Integer productId;
     Integer quantity;
 
-    public AddCartDto() {
+    public CartDto() {
     }
 
     public Integer getUserId() {

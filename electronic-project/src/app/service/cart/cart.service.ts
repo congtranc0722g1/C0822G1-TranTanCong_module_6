@@ -20,4 +20,12 @@ export class CartService {
   getTotalPayment(id: number){
     return this.httpClient.get<number>("http://localhost:8080/cart/total-payment?id=" + id)
   }
+
+  deletePurchaseDetail(userId: number, productId: number){
+    return this.httpClient.post("http://localhost:8080/cart/delete", {userId : userId, productId: productId});
+  }
+
+  updateCart(userId: number, productId: number, quantity: number){
+    return this.httpClient.put("http://localhost:8080/cart/update", {userId : userId, productId: productId, quantity: quantity})
+  }
 }

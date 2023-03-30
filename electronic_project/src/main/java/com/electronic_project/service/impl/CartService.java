@@ -6,6 +6,7 @@ import com.electronic_project.model.purchase.PurchaseDetail;
 import com.electronic_project.repository.ICartRepository;
 import com.electronic_project.repository.IPurchaseRepository;
 import com.electronic_project.service.ICartService;
+import com.electronic_project.service.IPurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class CartService implements ICartService {
     private ICartRepository cartRepository;
 
     @Autowired
-    private IPurchaseRepository purchaseRepository;
+    private IPurchaseService purchaseService;
 
     @Override
     public List<ICartDto> getCart(Integer id) {
@@ -30,16 +31,16 @@ public class CartService implements ICartService {
         cartRepository.addCart(quantity, productId, purchaseId);
     }
 
-//    @Override
-//    public void updateCart(Integer quantity, Integer productId, Integer purchaseId) {
-//        cartRepository.updateCart(quantity, productId, purchaseId);
-//    }
+    @Override
+    public void updateCart(Integer quantity, Integer productId, Integer purchaseId) {
+        cartRepository.updateCart(quantity, productId, purchaseId);
+    }
 
     @Override
     public Integer checkPurchase(Integer id) {
-        List<Purchase> purchaseList = purchaseRepository.findAll();
+        List<Purchase> purchaseList = purchaseService.findAll();
         for (int i = 0; i < purchaseList.size(); i++) {
-            if (id == purchaseList.get(i).getUser().getId()){
+            if (id == purchaseList.get(i).getUser().getId() && purchaseList.get(i).getPurchaseStatus().getId() == 1){
                 return purchaseList.get(i).getId();
             }
         }
@@ -49,5 +50,15 @@ public class CartService implements ICartService {
     @Override
     public Double getTotalPayment(Integer id) {
         return cartRepository.getTotalPayment(id);
+    }
+
+    @Override
+    public PurchaseDetail findPurchase(Integer productId, Integer purchaseId) {
+        return cartRepository.findPurchase(productId, purchaseId);
+    }
+
+    @Override
+    public void deletePurchaseDetail(Integer productId, Integer purchaseId) {
+        cartRepository.deletePurchaseDetail(productId, purchaseId);
     }
 }

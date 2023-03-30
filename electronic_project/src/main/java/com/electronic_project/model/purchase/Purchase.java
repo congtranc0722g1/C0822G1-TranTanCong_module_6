@@ -1,6 +1,5 @@
 package com.electronic_project.model.purchase;
 
-import com.electronic_project.model.product.Product;
 import com.electronic_project.model.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,6 +23,10 @@ public class Purchase {
     @OneToMany(mappedBy = "purchase")
     @JsonBackReference
     private List<PurchaseDetail> purchaseDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "purchase_status_id", nullable = false, referencedColumnName = "id")
+    private PurchaseStatus purchaseStatus;
 
     public Purchase() {
     }
@@ -74,5 +77,13 @@ public class Purchase {
 
     public void setPurchaseDetails(List<PurchaseDetail> purchaseDetails) {
         this.purchaseDetails = purchaseDetails;
+    }
+
+    public PurchaseStatus getPurchaseStatus() {
+        return purchaseStatus;
+    }
+
+    public void setPurchaseStatus(PurchaseStatus purchaseStatus) {
+        this.purchaseStatus = purchaseStatus;
     }
 }

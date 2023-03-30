@@ -6,6 +6,8 @@ import {ShareService} from "../../service/login/share.service";
 import {Router} from "@angular/router";
 import {SearchProductService} from "../../service/product/search-product.service";
 import {Product} from "../../model/product/product";
+import {CartService} from "../../service/cart/cart.service";
+import {Cart} from "../../model/cart/cart";
 
 
 @Component({
@@ -20,12 +22,15 @@ export class HeaderComponent implements OnInit {
   name: '';
   temp: string = '';
   productList: Product[] = [];
+  cartList: Cart[] = [];
+  totalCart: number = 0;
   isHidden: boolean = true;
   constructor(private router:Router,
               private token:TokenService,
               private loginService:LoginService,
               private share:ShareService,
-              private searchProductService: SearchProductService) {
+              private searchProductService: SearchProductService,
+              private cartService: CartService) {
 
     this.token.getUserNameLoggedIn().subscribe(next => {this.name = next
       this.isLogged = this.token.isLogger();
@@ -38,6 +43,7 @@ export class HeaderComponent implements OnInit {
     this.searchProductService.checkHidden.subscribe(next => {
       this.isHidden = next;
     })
+      this.getCart(+this.token.getId());
   }
 
   ngOnInit(): void {
@@ -76,5 +82,12 @@ export class HeaderComponent implements OnInit {
   searchName(name: string){
     this.router.navigateByUrl('/product');
     this.searchProductService.searchNameCategory(name);
+  }
+
+  getCart(id: number){
+    this.cartService.getCard(id).subscribe(next => {
+      this.cartList = next;
+      console.log(next)
+    })
   }
 }

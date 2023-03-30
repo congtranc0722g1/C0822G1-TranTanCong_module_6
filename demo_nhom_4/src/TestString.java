@@ -1,31 +1,26 @@
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class TestString {
-    public static void main(String[] args) {
-        int arr[] = {1,2,3,6,5,6, 6, 4};
-        Arrays.sort(arr);
-        int size = arr.length;
-        for (int i = size - 2; i >= 0; i--) {
-            if (arr[i] != arr[size - 1]){
-                System.out.println(arr[i]);
-                break;
-            }
-        }
 
-//        int max = arr[0];
-//        int max2 = arr[0];
-//        for (int a = 1; a < arr.length; a++) {
-//            if (max <= arr[a] ){
-//                max = arr[a];
-//            }
-//        }
-//
-//        for (int i = 1; i < arr.length; i++) {
-//            if (max2 < arr[i] && arr[i] != max){
-//                max2 = arr[i];
-//            }
-//        }
-////        System.out.println(max2);
-    }
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Nhập độ dài của mảng: ");
+            int size = scanner.nextInt();
+            int[] arr = new int[size];
+            System.out.println("Nhập phần tử: ");
+            for (int i = 0; i < size; i++) {
+                arr[i] = scanner.nextInt();
+            }
+            int[] symmetricArr = new int[size];
+            for (int i = 0; i < size; i++) {
+                symmetricArr[i] = arr[size - i - 1];
+            }
+            System.out.println("Mảng đảo ngược: ");
+            for (int i = 0; i < size; i++) {
+                System.out.print(symmetricArr[i] + " ");
+            }
+            scanner.close();
+        }
 }

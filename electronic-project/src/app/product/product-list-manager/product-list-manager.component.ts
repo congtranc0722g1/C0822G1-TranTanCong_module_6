@@ -5,6 +5,7 @@ import {CategoryService} from "../../service/product/category.service";
 import {TrademarkService} from "../../service/product/trademark.service";
 import {Category} from "../../model/product/category";
 import {Trademark} from "../../model/product/trademark";
+import {TokenService} from "../../service/login/token.service";
 
 @Component({
   selector: 'app-product-list-manager',
@@ -25,7 +26,9 @@ export class ProductListManagerComponent implements OnInit {
   categoryList: Category[] = [];
   trademarkList: Trademark[] = [];
 
-  constructor(private  productService: ProductService, private categoryService: CategoryService, private trademarkService: TrademarkService) { }
+  constructor(private  productService: ProductService,
+              private categoryService: CategoryService,
+              private trademarkService: TrademarkService) { }
 
   ngOnInit(): void {
     this.showListProductManager(this.category, this.trademark, this.nameSearch);

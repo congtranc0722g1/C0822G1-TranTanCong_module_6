@@ -8,6 +8,8 @@ import {Trademark} from "../../model/product/trademark";
 import {TrademarkService} from "../../service/product/trademark.service";
 import {SearchProductService} from "../../service/product/search-product.service";
 import {HeaderComponent} from "../../home/header/header.component";
+import {CartService} from "../../service/cart/cart.service";
+import {TokenService} from "../../service/login/token.service";
 
 
 @Component({
@@ -27,9 +29,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
   trademarkList: Trademark[] = [];
   countProduct: number;
 
-  constructor(private productService: ProductService, private categoryService: CategoryService, private  trademarkService: TrademarkService, private searchProductService: SearchProductService) {
+  constructor(private productService: ProductService,
+              private categoryService: CategoryService,
+              private  trademarkService: TrademarkService,
+              private searchProductService: SearchProductService,
+              private cartService: CartService,
+              private token: TokenService) {
     this.searchProductService.currentMessage.subscribe(next => {
-      this.category1 = next;
+        this.category1 = next;
     })
     this.searchProductService.searchCategory.subscribe(next => {
       this.nameSearch = next;
@@ -71,5 +78,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.checkHidden(true);
+  }
+
+  addCart(productId: number){
+    this.cartService.addCart(+this.token.getId(), productId, 1).subscribe(next => {
+      alert("Sản phẩm đã được thêm vào giỏ hàng");
+    })
   }
 }

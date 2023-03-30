@@ -37,18 +37,18 @@
       <div class="d-flex align-items-center mb-4 pt-2">
         <div class="input-group quantity mr-3" style="width: 130px;">
           <div class="input-group-btn">
-            <button class="btn btn-primary btn-minus" >
+            <button class="btn btn-primary btn-minus" (click)="decreaseQuantity()">
               <i class="fa fa-minus"></i>
             </button>
           </div>
-          <input type="text" class="form-control bg-secondary text-center" value="1">
+          <input [(ngModel)]="quantity" type="text" class="form-control bg-secondary text-center">
           <div class="input-group-btn">
-            <button class="btn btn-primary btn-plus">
+            <button class="btn btn-primary btn-plus" (click)="increaseQuantity()">
               <i class="fa fa-plus"></i>
             </button>
           </div>
         </div>
-        <button class="btn px-3 text-white" style="background-color: #007bff"><i class="fa fa-shopping-cart mr-1 text-white"></i> Thêm vào giỏ hàng</button>
+        <button (click)="addCart(product.id)" class="btn px-3 text-white" style="background-color: #007bff"><i class="fa fa-shopping-cart mr-1 text-white"></i> Thêm vào giỏ hàng</button>
       </div>
       <div class="d-flex pt-2">
         <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>

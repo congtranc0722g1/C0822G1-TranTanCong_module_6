@@ -5,6 +5,9 @@ import {TokenService} from "../../service/login/token.service";
 import {CartService} from "../../service/cart/cart.service";
 import {Cart} from "../../model/cart/cart";
 import {ShareService} from "../../service/login/share.service";
+import {Router} from "@angular/router";
+import {SearchProductService} from "../../service/product/search-product.service";
+import { render } from 'creditcardpayments/creditCardPayments';
 
 @Component({
   selector: 'app-cart',
@@ -15,32 +18,49 @@ export class CartComponent implements OnInit {
   user: User = {};
   name: '';
   isLogged = false;
-  quantityAcv: number = 0;
+  quantity: number;
   cartList: Cart[] = [];
   totalPayment: number;
+  usdPayment= 0;
 
 
-  constructor(private loginService: LoginService, private token:TokenService, private cartService: CartService,
-              private share: ShareService) {
-    // if (this.token.getId() != null){
-    //
-    // }
+  constructor(private loginService: LoginService,
+              private token:TokenService,
+              private cartService: CartService,
+              private share: ShareService,
+              private router: Router) {
+    this.share.getClickEvent().subscribe(next => {
+      this.getCart(+this.token.getId());
+      this.getTotalPayment(+this.token.getId());
+    })
+
+    render({
+      id: "#buttonPayment",
+      currency: "USD",
+      value: (this.usdPayment).toFixed(2),
+      onApprove: (details) => {
+        alert("Ok")
+      }
+    })
   }
 
   ngOnInit(): void {
     this.getCart(+this.token.getId());
     this.getTotalPayment(+this.token.getId());
+    console.log(this.getTotalPayment(+this.token.getId()))
   }
 
-  increaseQuantity() {
-    this.quantityAcv++;
+  increaseQuantity(productId: number, quantity: number) {
+    this.cartService.addCart(+this.token.getId(), productId, quantity).subscribe(next => {
+      this.share.sendClickEvent();
+    })
   }
 
-  decreaseQuantity() {
-    if (this.quantityAcv > 0) {
-      this.quantityAcv--;
-    }
-  }
+  // decreaseQuantity() {
+  //   if (this.quantityAcv > 0) {
+  //     this.quantityAcv--;
+  //   }
+  // }
 
   loader() {
     if (this.isLogged) {
@@ -63,7 +83,21 @@ export class CartComponent implements OnInit {
   getTotalPayment(id: number){
     this.cartService.getTotalPayment(id).subscribe(next => {
       this.totalPayment = next;
+      this.usdPayment = next/24000
+      console.log(this.usdPayment)
     })
   }
 
+  deletePurchaseDetail(productId: number){
+    this.cartService.deletePurchaseDetail(+this.token.getId(), productId).subscribe(next =>{
+      alert("Xóa thành công")
+      this.share.sendClickEvent();
+    })
+  }
+
+  updateQuantity(productId: number, quantity: number) {
+    this.cartService.updateCart(+this.token.getId(), productId, quantity).subscribe(next => {
+      this.share.sendClickEvent();
+    })
+  }
 }
