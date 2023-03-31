@@ -43,7 +43,11 @@ export class HeaderComponent implements OnInit {
     this.searchProductService.checkHidden.subscribe(next => {
       this.isHidden = next;
     })
+    this.getCart(+this.token.getId());
+
+    this.share.getClickEvent().subscribe(next => {
       this.getCart(+this.token.getId());
+    })
   }
 
   ngOnInit(): void {

@@ -14,6 +14,11 @@ public interface IPurchaseRepository extends JpaRepository<Purchase, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "insert into purchase(`code`, order_date, purchase_status_id, user_id) value (:code, :orderDate, :purchaseStatusId, :userId)", nativeQuery = true)
-    void addPurchase(@Param("code") String code, @Param("orderDate") String orderDate, @Param("purchaseStatusId") Integer purchaseStatusId, @Param("userId") Integer userId);
+    @Query(value = "insert into purchase(`code`, purchase_status_id, user_id) value (:code, :purchaseStatusId, :userId)", nativeQuery = true)
+    void addPurchase(@Param("code") String code, @Param("purchaseStatusId") Integer purchaseStatusId, @Param("userId") Integer userId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update purchase set purchase_status_id = :purchaseStatus, order_date = :orderDate where id = :id", nativeQuery = true)
+    void updatePurchase(@Param("purchaseStatus") Integer purchaseStatus, @Param("orderDate") String orderDate, @Param("id") Integer id);
 }

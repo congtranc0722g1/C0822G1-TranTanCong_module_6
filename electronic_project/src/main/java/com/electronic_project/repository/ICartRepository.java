@@ -23,8 +23,8 @@ public interface ICartRepository extends JpaRepository<PurchaseDetail, Integer> 
 //            "GROUP BY product.id", nativeQuery = true)
 //    List<ICartDto> getCart(@Param("id") Integer id);
 
-        @Query(value = "SELECT image.url, product.id, product.name, product.price, (SELECT SUM(quantity) FROM purchase_detail JOIN purchase ON purchase_detail.purchase_id = purchase.id JOIN user ON purchase.user_id = user.id WHERE purchase_detail.product_id = product.id AND user.id = :id) AS quantity\n" +
-                ", (IFNULL(product.price, 0) * (SELECT SUM(quantity) FROM purchase_detail WHERE purchase_detail.product_id = product.id)) AS total \n" +
+        @Query(value = "SELECT image.url,product.id, product.name, product.price, (SELECT SUM(quantity) FROM purchase_detail JOIN purchase ON purchase_detail.purchase_id = purchase.id JOIN user ON purchase.user_id = user.id JOIN purchase_status ON purchase.purchase_status_id = purchase_status.id WHERE purchase_detail.product_id = product.id AND user.id = :id AND purchase_status.id = 1) AS quantity\n" +
+                ", (IFNULL(product.price, 0) * (SELECT SUM(quantity) FROM purchase_detail JOIN purchase ON purchase_detail.purchase_id = purchase.id JOIN user ON purchase.user_id = user.id JOIN purchase_status ON purchase.purchase_status_id = purchase_status.id WHERE purchase_detail.product_id = product.id AND user.id = :id AND purchase_status.id = 1)) AS total \n" +
                 "FROM purchase_detail \n" +
                 "JOIN product ON purchase_detail.product_id = product.id \n" +
                 "JOIN image ON product.id = image.product_id \n" +
@@ -50,8 +50,9 @@ public interface ICartRepository extends JpaRepository<PurchaseDetail, Integer> 
             "FROM purchase_detail \n" +
             "JOIN product ON purchase_detail.product_id = product.id \n" +
             "JOIN purchase ON purchase_detail.purchase_id = purchase.id \n" +
+            "JOIN purchase_status ON purchase.purchase_status_id = purchase_status.id\n" +
             "JOIN user ON purchase.user_id = user.id \n" +
-            "WHERE user.id = :id", nativeQuery = true)
+            "WHERE user.id = :id AND purchase_status.id = 1", nativeQuery = true)
     Double getTotalPayment(@Param("id") Integer id);
 
     @Query(value = "select * from purchase_detail where product_id = :productId and purchase_id = :purchaseId", nativeQuery = true)

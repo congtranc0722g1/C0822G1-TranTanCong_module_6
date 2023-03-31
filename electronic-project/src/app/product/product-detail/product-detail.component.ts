@@ -4,6 +4,8 @@ import {Product} from "../../model/product/product";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CartService} from "../../service/cart/cart.service";
 import {TokenService} from "../../service/login/token.service";
+import {ShareService} from "../../service/login/share.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-product-detail',
@@ -18,7 +20,9 @@ export class ProductDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private productService: ProductService,
               private cartService: CartService,
-              private token: TokenService) {
+              private token: TokenService,
+              private share: ShareService,
+              private toastrService: ToastrService) {
     this.activatedRoute.paramMap.subscribe(next => {
       const id = +next.get('id');
       this.findProduct(id);
@@ -37,7 +41,8 @@ export class ProductDetailComponent implements OnInit {
 
   addCart(productId: number){
     this.cartService.addCart(+this.token.getId(), productId, this.quantity).subscribe(next => {
-      alert("Sản phẩm đã được thêm vào giỏ hàng");
+      this.share.sendClickEvent();
+      this.toastrService.success("Sản phẩm đã được thêm vào giỏ hàng", "Thông báo")
     })
   }
 

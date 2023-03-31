@@ -8,6 +8,8 @@ import {jsGlobalObjectValue} from "@angular/compiler-cli/src/ngtsc/partial_evalu
 import {Router} from "@angular/router";
 import {TokenService} from "../../service/login/token.service";
 import {CartService} from "../../service/cart/cart.service";
+import {ShareService} from "../../service/login/share.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-body',
@@ -24,8 +26,13 @@ export class BodyComponent implements OnInit {
   // idCategory: number;
   // category: number;
 
-  constructor(private productService: ProductService, private categoryService: CategoryService, private searchProductService: SearchProductService, private router: Router,
-  private token: TokenService, private cartService: CartService) {
+  constructor(private productService: ProductService,
+              private categoryService: CategoryService,
+              private searchProductService: SearchProductService,
+              private router: Router,
+              private share: ShareService,
+  private token: TokenService, private cartService: CartService,
+              private toastrService: ToastrService) {
     this.productService.showLatestProductList().subscribe(next => {
       console.log(next)
       this.latestProductList = next;
@@ -51,7 +58,8 @@ export class BodyComponent implements OnInit {
 
   addCart(productId: number){
     this.cartService.addCart(+this.token.getId(), productId, 1).subscribe(next => {
-      alert("Sản phẩm đã được thêm vào giỏ hàng");
+      this.share.sendClickEvent();
+      this.toastrService.success("Sản phẩm đã được thêm vào giỏ hàng", "Thông báo")
     })
   }
 }

@@ -21,8 +21,8 @@ public class PurchaseService implements IPurchaseService {
     }
 
     @Override
-    public void addPurchase(String code, String orderDate, Integer purchaseStatusId, Integer userId) {
-        purchaseRepository.addPurchase(code, orderDate, purchaseStatusId, userId);
+    public void addPurchase(String code, Integer purchaseStatusId, Integer userId) {
+        purchaseRepository.addPurchase(code, purchaseStatusId, userId);
     }
 
     @Override
@@ -35,5 +35,10 @@ public class PurchaseService implements IPurchaseService {
             text[i] = CHARACTERS.charAt(random.nextInt(CHARACTERS.length()));
         }
         return new String(text);
+    }
+
+    @Override
+    public void updatePurchase(Integer purchaseStatus, String orderDate, Integer id) {
+        purchaseRepository.updatePurchase(purchaseStatus, orderDate, id);
     }
 }

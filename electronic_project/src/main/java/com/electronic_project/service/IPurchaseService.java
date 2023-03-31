@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface IPurchaseService {
     List<Purchase> findAll();
-    void addPurchase(String code, String orderDate, Integer purchaseStatusId, Integer userId);
+    void addPurchase(String code, Integer purchaseStatusId, Integer userId);
 
     String checkCode();
+
+    void updatePurchase(Integer purchaseStatus, String orderDate, Integer id);
 }

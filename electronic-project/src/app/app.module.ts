@@ -9,6 +9,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoginModule} from "./login/login.module";
 import {ProductModule} from "./product/product.module";
 import {CartModule} from "./cart/cart.module";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {CartModule} from "./cart/cart.module";
     FormsModule,
     LoginModule,
     ProductModule,
-    CartModule
+    CartModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

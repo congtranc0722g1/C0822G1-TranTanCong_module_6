@@ -49,10 +49,7 @@ public class CartController {
         }
         if (purchaseId == -1) {
             String code = purchaseService.checkCode();
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDateTime = currentDateTime.format(formatter);
-            purchaseService.addPurchase(code, formattedDateTime, 1, cartDto.getUserId());
+            purchaseService.addPurchase(code, 1, cartDto.getUserId());
             Integer purchaseIdNew = cartService.checkPurchase(cartDto.getUserId());
             cartService.addCart(cartDto.getQuantity(), cartDto.getProductId(), purchaseIdNew);
             return new ResponseEntity<>(HttpStatus.OK);

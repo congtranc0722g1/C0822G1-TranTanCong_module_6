@@ -10,6 +10,8 @@ import {SearchProductService} from "../../service/product/search-product.service
 import {HeaderComponent} from "../../home/header/header.component";
 import {CartService} from "../../service/cart/cart.service";
 import {TokenService} from "../../service/login/token.service";
+import {ShareService} from "../../service/login/share.service";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -34,7 +36,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
               private  trademarkService: TrademarkService,
               private searchProductService: SearchProductService,
               private cartService: CartService,
-              private token: TokenService) {
+              private token: TokenService,
+              private share: ShareService,
+              private toastrService: ToastrService) {
     this.searchProductService.currentMessage.subscribe(next => {
         this.category1 = next;
     })
@@ -82,7 +86,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   addCart(productId: number){
     this.cartService.addCart(+this.token.getId(), productId, 1).subscribe(next => {
-      alert("Sản phẩm đã được thêm vào giỏ hàng");
+      this.share.sendClickEvent();
+      this.toastrService.success("Sản phẩm đã được thêm vào giỏ hàng", "Thông báo")
     })
   }
 }

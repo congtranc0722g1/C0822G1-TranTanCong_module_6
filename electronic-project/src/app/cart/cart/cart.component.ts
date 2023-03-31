@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {LoginService} from "../../service/login/login.service";
 import {User} from "../../model/user/user";
 import {TokenService} from "../../service/login/token.service";
@@ -7,7 +7,7 @@ import {Cart} from "../../model/cart/cart";
 import {ShareService} from "../../service/login/share.service";
 import {Router} from "@angular/router";
 import {SearchProductService} from "../../service/product/search-product.service";
-import { render } from 'creditcardpayments/creditCardPayments';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
   isLogged = false;
   quantity: number;
   cartList: Cart[] = [];
-  totalPayment: number;
+  totalPayment: number = 0;
   usdPayment= 0;
 
 
@@ -28,23 +28,16 @@ export class CartComponent implements OnInit {
               private token:TokenService,
               private cartService: CartService,
               private share: ShareService,
-              private router: Router) {
+              private router: Router,
+              private toastrService: ToastrService) {
     this.share.getClickEvent().subscribe(next => {
       this.getCart(+this.token.getId());
       this.getTotalPayment(+this.token.getId());
     })
-
-    render({
-      id: "#buttonPayment",
-      currency: "USD",
-      value: (this.usdPayment).toFixed(2),
-      onApprove: (details) => {
-        alert("Ok")
-      }
-    })
   }
 
   ngOnInit(): void {
+    window.scroll(0,50)
     this.getCart(+this.token.getId());
     this.getTotalPayment(+this.token.getId());
     console.log(this.getTotalPayment(+this.token.getId()))
@@ -90,7 +83,7 @@ export class CartComponent implements OnInit {
 
   deletePurchaseDetail(productId: number){
     this.cartService.deletePurchaseDetail(+this.token.getId(), productId).subscribe(next =>{
-      alert("Xóa thành công")
+      this.toastrService.success("Sản phẩm đã bị xóa khỏi giỏ hàng", "Thông báo")
       this.share.sendClickEvent();
     })
   }
