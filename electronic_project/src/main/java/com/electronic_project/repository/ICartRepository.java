@@ -23,7 +23,7 @@ public interface ICartRepository extends JpaRepository<PurchaseDetail, Integer> 
 //            "GROUP BY product.id", nativeQuery = true)
 //    List<ICartDto> getCart(@Param("id") Integer id);
 
-        @Query(value = "SELECT image.url,product.id, product.name, product.price, (SELECT SUM(quantity) FROM purchase_detail JOIN purchase ON purchase_detail.purchase_id = purchase.id JOIN user ON purchase.user_id = user.id JOIN purchase_status ON purchase.purchase_status_id = purchase_status.id WHERE purchase_detail.product_id = product.id AND user.id = :id AND purchase_status.id = 1) AS quantity\n" +
+        @Query(value = "SELECT image.url,product.id, product.quantity as inventory, product.name, product.price, (SELECT SUM(quantity) FROM purchase_detail JOIN purchase ON purchase_detail.purchase_id = purchase.id JOIN user ON purchase.user_id = user.id JOIN purchase_status ON purchase.purchase_status_id = purchase_status.id WHERE purchase_detail.product_id = product.id AND user.id = :id AND purchase_status.id = 1) AS quantity\n" +
                 ", (IFNULL(product.price, 0) * (SELECT SUM(quantity) FROM purchase_detail JOIN purchase ON purchase_detail.purchase_id = purchase.id JOIN user ON purchase.user_id = user.id JOIN purchase_status ON purchase.purchase_status_id = purchase_status.id WHERE purchase_detail.product_id = product.id AND user.id = :id AND purchase_status.id = 1)) AS total \n" +
                 "FROM purchase_detail \n" +
                 "JOIN product ON purchase_detail.product_id = product.id \n" +

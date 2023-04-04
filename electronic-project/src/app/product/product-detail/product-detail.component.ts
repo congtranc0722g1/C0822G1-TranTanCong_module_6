@@ -16,6 +16,8 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product = {};
   quantity: number = 1;
+  productListByCategory: Product[] = [];
+  categoryId: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private productService: ProductService,
@@ -31,11 +33,14 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
     window.scroll(0,50)
+    this.findProductByCategory(this.categoryId);
   }
 
   findProduct(id: number){
     this.productService.findProduct(id).subscribe(next => {
       this.product = next;
+      this.categoryId = next.category.id
+      this.findProductByCategory(next.category.id);
     })
   }
 
@@ -54,6 +59,14 @@ export class ProductDetailComponent implements OnInit {
     if (this.quantity >= 1) {
       this.quantity--;
     }
+  }
+
+  findProductByCategory(categoryId: number){
+    this.productService.findProductByCategory(categoryId).subscribe(next => {
+      this.productListByCategory = next;
+      console.log(next)
+      }
+    )
   }
 
 }

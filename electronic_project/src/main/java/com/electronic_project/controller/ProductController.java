@@ -1,5 +1,7 @@
 package com.electronic_project.controller;
 
+import com.electronic_project.dto.cart.ICartDto;
+import com.electronic_project.dto.cart.UpdateQuantityCartDto;
 import com.electronic_project.dto.product.ProductDto;
 import com.electronic_project.model.product.Product;
 import com.electronic_project.service.IProductService;
@@ -90,5 +92,28 @@ public class ProductController {
     private ResponseEntity<Integer> countProduct(){
         Integer countProduct = productService.countProduct();
         return new ResponseEntity<>(countProduct, HttpStatus.OK);
+    }
+
+    @PutMapping("/update-quantity-product")
+    private ResponseEntity<?> updateQuantity(@RequestBody List<UpdateQuantityCartDto> updateQuantityCartDtoList){
+        List<Product> productList = productService.showAll();
+        for (int i = 0; i < updateQuantityCartDtoList.size(); i++) {
+            for (int j = 0; j < productList.size(); j++) {
+                if (updateQuantityCartDtoList.get(i).getId() == productList.get(j).getId()){
+                    productService.updateQuantityProduct(productList.get(j).getQuantity() - updateQuantityCartDtoList.get(i).getQuantity(), productList.get(j).getId());
+                }
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @GetMapping("/product-by-category")
+    private ResponseEntity<List<Product>> findProductByCategory(@RequestParam("categoryId") Integer categoryId){
+        List<Product> productList = productService.findProductByCategory(categoryId);
+        if (productList.isEmpty()){
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 }

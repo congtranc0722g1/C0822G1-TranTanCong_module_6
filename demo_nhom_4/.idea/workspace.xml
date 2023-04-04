@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0f74c246-1073-46cf-b400-aadc181cf2e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../demo/src/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../electronic-project-fe/src/assets/css/responsive.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../electronic-project-fe/src/assets/css/typography.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/dto/cart/UpdateQuantityCartDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FE/mobile-shop" beforeDir="false" afterPath="$PROJECT_DIR$/../FE/mobile-shop" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../c0822g1-mobile-shop-BE" beforeDir="false" afterPath="$PROJECT_DIR$/../c0822g1-mobile-shop-BE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ca-nhan-2/c0822g1-mobile-shop-FE" beforeDir="false" afterPath="$PROJECT_DIR$/../ca-nhan-2/c0822g1-mobile-shop-FE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ca-nhan/c0822g1-mobile-shop-BE" beforeDir="false" afterPath="$PROJECT_DIR$/../ca-nhan/c0822g1-mobile-shop-BE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/module6" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/module6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_nhom_4.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/demo_nhom_4/TestString.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestString.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/cart/cart/cart.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/cart/cart/cart.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/cart/cart/cart.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/cart/cart/cart.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/cart/payment/payment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/cart/payment/payment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/cart/payment/payment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/cart/payment/payment.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/home/body/body.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/home/body/body.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/home/body/body.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/home/body/body.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/home/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/home/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/home/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/home/header/header.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/model/cart/cart.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/model/cart/cart.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/product/product-list/product-list.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/product/product-list/product-list.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/product/product-list/product-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/product/product-list/product-list.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic-project/src/app/service/product/product.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic-project/src/app/service/product/product.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/dto/cart/ICartDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/dto/cart/ICartDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/repository/ICartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/repository/ICartRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/repository/IProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/service/IProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../electronic_project/src/main/java/com/electronic_project/service/impl/ProductService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2NIgPMNyAn9gVz4OADKgbR9d3Vr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RunManager" selected="Application.TestString">
+    <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Demo" />
+      <module name="demo_nhom_4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="demo_nhom_4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OCA2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="OCA2" />
+      <module name="demo_nhom_4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="demo_nhom_4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestString" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestString" />
+      <module name="demo_nhom_4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestString" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Demo" />
+        <item itemvalue="Application.OCA2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f74c246-1073-46cf-b400-aadc181cf2e5" name="Changes" comment="" />
+      <created>1679356985488</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679356985488</updated>
+      <workItem from="1679356986739" duration="99000" />
+      <workItem from="1679361592848" duration="10252000" />
+      <workItem from="1679476677649" duration="1739000" />
+      <workItem from="1679487775759" duration="595000" />
+      <workItem from="1679488410889" duration="11000" />
+      <workItem from="1679545645135" duration="307000" />
+      <workItem from="1679546054352" duration="767000" />
+      <workItem from="1679552540376" duration="23000" />
+      <workItem from="1679552579329" duration="9000" />
+      <workItem from="1679560100873" duration="2273000" />
+      <workItem from="1679580221265" duration="6060000" />
+      <workItem from="1679621493452" duration="2364000" />
+      <workItem from="1679642023821" duration="985000" />
+      <workItem from="1679717329413" duration="29000" />
+      <workItem from="1679878606204" duration="739000" />
+      <workItem from="1679880842527" duration="4947000" />
+      <workItem from="1679904830223" duration="786000" />
+      <workItem from="1680051462006" duration="4728000" />
+      <workItem from="1680073836176" duration="3410000" />
+      <workItem from="1680159716912" duration="930000" />
+      <workItem from="1680246134236" duration="381000" />
+      <workItem from="1680317212655" duration="17000" />
+      <workItem from="1680317244470" duration="82000" />
+      <workItem from="1680440310755" duration="111000" />
+      <workItem from="1680440442149" duration="140000" />
+      <workItem from="1680484809466" duration="38000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

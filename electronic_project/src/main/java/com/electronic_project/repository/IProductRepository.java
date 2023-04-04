@@ -38,4 +38,15 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "select count(*) from product", nativeQuery = true)
     Integer countProduct();
+
+    @Query(value = "select * from product", nativeQuery = true)
+    List<Product> showAll();
+
+    @Modifying
+    @Transactional
+    @Query(value = "update product set quantity = :quantity where id = :id", nativeQuery = true)
+    void updateQuantityProduct(@Param("quantity") Integer quantity, @Param("id") Integer id);
+
+    @Query(value = "select * from product where category_id = :categoryId limit 0, 8", nativeQuery = true)
+    List<Product> findProductByCategory(@Param("categoryId") Integer categoryId);
 }

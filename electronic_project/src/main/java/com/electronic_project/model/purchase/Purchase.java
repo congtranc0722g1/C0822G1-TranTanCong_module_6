@@ -12,9 +12,12 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String code;
-    @Column(columnDefinition = "date")
+    @Column(columnDefinition = "datetime")
     private String orderDate;
-    private String status;
+    private String customerName;
+    private String customerPhone;
+    @Column(columnDefinition = "longtext")
+    private String customerAddress;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
@@ -55,12 +58,28 @@ public class Purchase {
         this.orderDate = orderDate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
     public User getUser() {

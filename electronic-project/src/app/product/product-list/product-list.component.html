@@ -100,7 +100,7 @@
           </div>
         </div>
 
-        <div *ngFor="let saleProduct of saleProductList" class="col-lg-4 col-md-6 col-sm-12 pb-1">
+        <div *ngFor="let saleProduct of saleProductList" class="col-lg-4 col-md-6 col-sm-12 pb-1" >
 <!--          <div class="card product-item border-0 mb-4">-->
 <!--            <div [routerLink]="['/detail', saleProduct.id]">-->
 <!--              <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 230px">-->
@@ -125,8 +125,11 @@
 <!--          </div>-->
           <div class="card product-item border-0 mb-4">
             <div [routerLink]="['/detail', saleProduct.id]">
+              <div class="image-wrapper">
+                <img *ngIf="saleProduct.quantity<1" class="center-image" src="https://firebasestorage.googleapis.com/v0/b/electronic-project-b2039.appspot.com/o/hethang-removebg-preview.png?alt=media&token=d230a6a0-d99c-443e-8fdd-cdc5ba58501b" width="120" height="120" alt="">
               <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 230px">
-                <img class="img-fluid w-100" src="{{saleProduct.images[0].url}}" height="250" alt="">
+                <img class="background-image img-fluid w-100" src="{{saleProduct.images[0].url}}" height="250" alt="">
+              </div>
               </div>
               <div class="card-body border-left border-right text-center p-0 pt-4 pb-3" style="height: 120px">
                 <div style="height: 65px">
@@ -140,10 +143,14 @@
                 </div>
               </div>
             </div>
-            <div class="card-footer d-flex justify-content-center bg-light border" (click)="addCart(saleProduct.id)">
-              <!--          <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Chi tiết</a>-->
-              <a class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ hàng</a>
-            </div>
+            <button [disabled]="saleProduct.quantity< 1" (click)="addCart(saleProduct.id)" class="btn px-3 d-flex justify-content-center border" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            </button>
+<!--            <div class="d-flex justify-content-center bg-light border btn btn-primary" (click)="addCart(saleProduct.id)">-->
+<!--              &lt;!&ndash;          <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Chi tiết</a>&ndash;&gt;-->
+<!--              <i disabled class="fas fa-shopping-cart text-primary mr-1"></i>-->
+<!--            </div>-->
           </div>
 
         </div>

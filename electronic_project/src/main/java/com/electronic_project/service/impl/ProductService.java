@@ -56,4 +56,19 @@ public class ProductService implements IProductService {
     public Integer countProduct() {
         return productRepository.countProduct();
     }
+
+    @Override
+    public List<Product> showAll() {
+        return productRepository.showAll();
+    }
+
+    @Override
+    public void updateQuantityProduct(Integer quantity, Integer id) {
+        productRepository.updateQuantityProduct(quantity, id);
+    }
+
+    @Override
+    public List<Product> findProductByCategory(Integer categoryId) {
+        return productRepository.findProductByCategory(categoryId);
+    }
 }

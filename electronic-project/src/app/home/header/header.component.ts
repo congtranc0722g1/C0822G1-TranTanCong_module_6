@@ -8,6 +8,7 @@ import {SearchProductService} from "../../service/product/search-product.service
 import {Product} from "../../model/product/product";
 import {CartService} from "../../service/cart/cart.service";
 import {Cart} from "../../model/cart/cart";
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -93,5 +94,25 @@ export class HeaderComponent implements OnInit {
       this.cartList = next;
       console.log(next)
     })
+  }
+
+  checKLogin() {
+    if (this.isLogged){
+      this.router.navigateByUrl("/cart")
+    }else {
+      Swal.fire({
+        title: "Bạn chưa đăng nhập!",
+        text: "Cần đăng nhập mới có thể xem được giỏ hàng",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#007bff",
+        confirmButtonText: "Đăng nhập!",
+        cancelButtonText: "Hủy",
+      }).then((result) =>{
+        if (result.isConfirmed) {
+          this.router.navigate(['/login'])
+        }
+      })
+    }
   }
 }

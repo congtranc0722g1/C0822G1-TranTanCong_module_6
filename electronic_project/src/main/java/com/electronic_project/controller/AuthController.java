@@ -81,16 +81,12 @@ public class AuthController {
         iUserService.save(user);
         return new ResponseEntity<>(new ResponseMessage("Đăng kí thành công"), HttpStatus.OK);
     }
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: login with only username and password
-     * @param signInForm
-     * @return
-     */
     @PostMapping("/login")
 
-    public ResponseEntity<?> login( @RequestBody SignInForm signInForm ) {
+    public ResponseEntity<?> login(@Valid @RequestBody SignInForm signInForm,BindingResult bindingResult ) {
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInForm.getUsername(), signInForm.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);

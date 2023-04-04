@@ -35,11 +35,12 @@ export class LoginComponent implements OnInit {
     roles: new FormControl('customer')
   });
   islogged = false;
-  constructor(private title:Title,private loginService: LoginService, private token: TokenService, private router: Router, private share: ShareService) {
+
+  constructor(private title: Title, private loginService: LoginService, private token: TokenService, private router: Router, private share: ShareService) {
   }
 
   ngOnInit(): void {
-    window.scroll(0,200)
+    window.scroll(0, 200)
     this.title.setTitle('Trang Đăng Nhập');
     this.islogged = this.token.isLogger();
     if (this.islogged) {
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.message = ''
     this.loginService.login(this.form.value).subscribe(next => {
         if (this.form.controls.rememberMe.value) {
           this.token.rememberMe(next.token, next.id, next.name, next.username, next.phoneNumber, next.email, next.address, next.age,
@@ -58,12 +60,18 @@ export class LoginComponent implements OnInit {
           this.token.rememberMe(next.token, next.id, next.name, next.username, next.phoneNumber, next.email, next.address, next.age,
             next.gender, next.dateOfBirth, next.avatar, next.roles, 'session');
         }
-      this.token.setIsLoggedIn(next.name);
+        this.token.setIsLoggedIn(next.name);
         this.share.sendClickEvent();
         // location.href='http://localhost:4200/'
-      this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/')
       }, error => {
-        this.message = error.error.message
+        if (error.error.message) {
+          this.message = error.error.message
+        } else {
+          for (let i = 0; i < error.error.length; i++) {
+            this.message = error.error[i].defaultMessage;
+          }
+        }
       }
     )
   }

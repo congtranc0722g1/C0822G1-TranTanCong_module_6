@@ -29,7 +29,7 @@ public class User {
     private String address;
     @Column(columnDefinition = "longtext")
     private String avatar;
-    private Boolean flagDelete = false;
+    private Boolean flagDelete = true;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

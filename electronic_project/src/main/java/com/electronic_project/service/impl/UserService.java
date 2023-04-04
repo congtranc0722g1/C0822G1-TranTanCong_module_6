@@ -28,18 +28,18 @@ public class UserService implements IUserService {
         return iUserRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public void updateUser(UpdateUserForm updateUserForm) {
-        iUserRepository.updateUser(updateUserForm.getName(),
-                updateUserForm.getPhoneNumber(),
-                updateUserForm.getEmail(),
-                updateUserForm.getAddress(),
-                updateUserForm.getAge(),
-                updateUserForm.getGender(),
-                updateUserForm.getDateOfBirth(),
-                updateUserForm.getAvatar(),
-                updateUserForm.getUsername());
-    }
+//    @Override
+//    public void updateUser(UpdateUserForm updateUserForm) {
+//        iUserRepository.updateUser(updateUserForm.getName(),
+//                updateUserForm.getPhoneNumber(),
+//                updateUserForm.getEmail(),
+//                updateUserForm.getAddress(),
+//                updateUserForm.getAge(),
+//                updateUserForm.getGender(),
+//                updateUserForm.getDateOfBirth(),
+//                updateUserForm.getAvatar(),
+//                updateUserForm.getUsername());
+//    }
 
     @Override
     public void changePassword(String password, String username) {
@@ -81,6 +81,16 @@ public class UserService implements IUserService {
     @Override
     public User userLogin(int id) {
         return iUserRepository.findById(id).get();
+    }
+
+    @Override
+    public void updateUser(String name, String dateOfBirth, Boolean gender, String phone, String email, String address, Integer id) {
+        iUserRepository.updateUser(name, dateOfBirth, gender, phone, email, address, id);
+    }
+
+    @Override
+    public void updateAvatarUser(String avatar, Integer id) {
+        iUserRepository.updateAvatarUser(avatar, id);
     }
 
     @Override

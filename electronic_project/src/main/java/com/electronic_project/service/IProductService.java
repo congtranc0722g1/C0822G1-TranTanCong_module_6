@@ -3,7 +3,6 @@ package com.electronic_project.service;
 import com.electronic_project.model.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -23,4 +22,10 @@ public interface IProductService {
     void addProduct(String code, String name, String createDay, String description, Double price, Double entryPrice, Integer quantiry, Boolean flagDelete, Integer categoryId, Integer trademarkId);
 
     Integer countProduct();
+
+    List<Product> showAll();
+
+    void updateQuantityProduct(Integer quantity, Integer id);
+
+    List<Product> findProductByCategory(Integer categoryId);
 }

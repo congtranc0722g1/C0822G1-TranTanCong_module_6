@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:with="http://www.thymeleaf.org/extras/with">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="_csrf" content="022e4c73-8bb6-4d7d-a88f-9e6f9a44093b" />
+
+    <meta name="_csrf_header" content="X-CSRF-TOKEN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="/images/logo/logo.jpg">
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="site">
+    <div class="site__body">
+        <div class="holder"><div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+        <title>Đăng nhập - Tạp hóa MMO</title>
+        <div>&nbsp;</div>
+        <div class="block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 d-flex flex-column">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <h3 class="card-title">Đăng nhập</h3>
+                                <hr>
+                                <form id="formLogin" action="/login-validator" method="post"><input type="hidden" name="_csrf" value="022e4c73-8bb6-4d7d-a88f-9e6f9a44093b" />
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" id="login_email" name="email" class="form-control text-lowercase">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mật khẩu</label>
+                                        <input id="login_password" type="password" name="password" class="form-control">
+                                        <small class="form-text text-muted">
+                                            <a href="/forgetPassword.html">Quên mật khẩu</a>
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="rem" type="checkbox" checked name="remember-me" />
+                                        <label for="rem">Ghi nhớ đăng nhập</label>
+                                    </div>
+                                    <input type="hidden" id="response2" name="response2" value="" />
+                                    <button id="loginButton" onclick="beforeLogin();" type="button" class="btn btn-primary mt-4">Đăng nhập</button>
+                                </form>
+                                <br><h6>Or</h6>
+                                <div style="padding-left: 10px;" class="row">
+                                    <div style="padding: 1px; border: 1px solid #4285f4; text-align: center;" class="col-2">
+                                        <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                    </div>
+                                    <div style="padding: 0px;" class="col-10">
+                                        <a class="oauth-container btn darken-4 white black-text" href="/login-with-google" style="text-transform:none;background-color: #4285f4; color: white;">
+                                            Login with Google
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 d-flex flex-column mt-4 mt-md-0">
+                        <div class="card flex-grow-1 mb-0">
+                            <div class="card-body">
+                                <h3 class="card-title">Đăng ký</h3>
+                                <p class="text-danger" id="msgSignup">
+                                    <span class="text-success">Chú ý: Nếu bạn sử dụng các chương trình</span> <span class="text-danger">Bypass Captcha </span> <span class="text-success">có thể không đăng ký tài khoản được.</span>
+                                <hr>
+                                <form id="formSignup" action="/singup.html" method="post" enctype="utf8"><input type="hidden" name="_csrf" value="022e4c73-8bb6-4d7d-a88f-9e6f9a44093b" />
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Tài khoản</label>
+                                            <input type="text" class="form-control" id="user.username" name="user.username" value="">
+                                            <label id="err_username" class="text-danger"></label>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Email</label>
+                                            <input id="signup_email" type="email" class="form-control text-lowercase" name="user.email" value="">
+                                            <label id="err_email" class="text-danger"></label>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Mật khẩu</label>
+                                            <input type="password" class="form-control" id="user.password" name="user.password" value="">
+                                            <label id="err_password" class="text-danger"></label>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Nhập lại mật khẩu</label>
+                                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="">
+                                            <label id="err_confirmPassword" class="text-danger"></label>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="form-check col-md-12">
+                                                <input class="form-check-input" type="checkbox" id="isRule" checked="checked" required name="rule" value="true"><input type="hidden" name="_rule" value="on" />
+                                                <label class="form-check-label" for="isRule">Tôi đã đọc và đồng ý với</label>
+                                                <a href="/quy-dinh.html" target="_blank">Điều khoản sử dụng Tạp Hóa MMO</a>
+                                            </div>
+                                            <label id="err_rule" class="text-danger"></label>
+                                        </div>
+                                        <input type="hidden" id="response" value="" name="response" />
+                                    </div>
+                                    <button type="button" onclick="doValidator()" class="btn btn-primary mt-4">Đăng ký</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

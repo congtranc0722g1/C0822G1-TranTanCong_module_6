@@ -1,5 +1,7 @@
 package com.electronic_project.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity

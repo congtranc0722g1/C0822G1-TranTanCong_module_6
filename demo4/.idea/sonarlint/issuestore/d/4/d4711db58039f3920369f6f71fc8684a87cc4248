@@ -1,0 +1,17 @@
+
+0
+java:S1220""Move this file to a named package.
+V	java:S125"<This block of commented-out lines of code should be removed.(»ž•ûÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(ß·³ù
+]	java:S125-"<This block of commented-out lines of code should be removed.(»ž•ûÿÿÿÿ8È¼éÖô0
+L
+java:S1197@"*Move the array designators [] to the type.(ö©¬½üÿÿÿÿ8Î¼éÖô0
+S	java:S106N"9Replace this use of System.out or System.err by a logger.(£ÙÃñøÿÿÿÿ
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Î¼éÖô0
+P
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8Î¼éÖô0
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Î¼éÖô0
+L
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òþÿÿÿÿ8Ñ¼éÖô0

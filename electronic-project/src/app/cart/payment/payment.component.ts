@@ -8,6 +8,7 @@ import {Cart} from "../../model/cart/cart";
 import {User} from "../../model/user/user";
 import {render} from "creditcardpayments/creditCardPayments";
 import {PurchaseService} from "../../service/purchase/purchase.service";
+import {ProductService} from "../../service/product/product.service";
 
 @Component({
   selector: 'app-payment',
@@ -21,13 +22,17 @@ export class PaymentComponent implements OnInit {
   totalPayment: number = 0;
   usdPayment: number;
   temp: number = 1;
+  customerName: string;
+  customerPhone: string;
+  customerAddress: string;
 
   constructor(private loginService: LoginService,
               private token: TokenService,
               private cartService: CartService,
               private share: ShareService,
               private router: Router,
-              private purchaseService: PurchaseService) {
+              private purchaseService: PurchaseService,
+              private productService: ProductService) {
     this.isLogged = this.token.isLogger()
     this.loader()
     this.share.getClickEvent().subscribe(next => {
@@ -52,16 +57,19 @@ export class PaymentComponent implements OnInit {
         currency: "USD",
         value: (this.usdPayment).toFixed(2),
         onApprove: (details) => {
+          console.log(this.customerName)
           this.updatePurchase();
-
-          this.router.navigateByUrl("/cart")
+          this.router.navigateByUrl("/cart/purchase-history")
+          this.productService.updateQuantityProduct(this.cartList).subscribe(next => {
+            this.share.sendClickEvent();
+          })
         }
       })
     })
   }
 
   updatePurchase(){
-    this.purchaseService.updatePurchase(+this.token.getId(), 2).subscribe(next =>{
+    this.purchaseService.updatePurchase(+this.token.getId(), 2, this.user.name, this.user.phone, this.user.address).subscribe(next =>{
     });
   }
 
@@ -93,5 +101,12 @@ export class PaymentComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.share.sendClickEvent();
+  }
+
+  paymentInfo(name: string, phone: string, address: string) {
+    console.log(name)
+    this.customerName = name;
+    this.customerPhone = phone;
+    this.customerAddress = address;
   }
 }

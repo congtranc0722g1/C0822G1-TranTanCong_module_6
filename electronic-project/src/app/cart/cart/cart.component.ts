@@ -8,6 +8,7 @@ import {ShareService} from "../../service/login/share.service";
 import {Router} from "@angular/router";
 import {SearchProductService} from "../../service/product/search-product.service";
 import {ToastrService} from "ngx-toastr";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-cart',
@@ -43,9 +44,31 @@ export class CartComponent implements OnInit {
     console.log(this.getTotalPayment(+this.token.getId()))
   }
 
-  increaseQuantity(productId: number, quantity: number) {
+  increaseQuantity(productId: number, quantity: number, name: string) {
     this.cartService.addCart(+this.token.getId(), productId, quantity).subscribe(next => {
       this.share.sendClickEvent();
+    }, error => {
+      if (error.error === 'errorQuantity'){
+        Swal.fire({
+          title: "Số lượng sản phẩm cần mua phải lớn hơn hoặc bằng 1",
+          text: "Bạn có muốn xóa sản phẩm: " +name+ " khỏi giỏ hàng không?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#007bff",
+          confirmButtonText: "Xóa",
+          cancelButtonText: "Hủy",
+        }).then((result) =>{
+          if (result.isConfirmed) {
+            this.cartService.deletePurchaseDetail(+this.token.getId(), productId).subscribe(next =>{
+              this.toastrService.success("Sản phẩm đã bị xóa khỏi giỏ hàng", "Thông báo")
+              this.share.sendClickEvent();
+            })
+          }
+        })
+      }
+      if (error.error ==='exceedTheAmount'){
+        this.toastrService.warning("Bạn đã nhập quá số lượng trong kho", "Thông báo")
+      }
     })
   }
 
@@ -54,6 +77,7 @@ export class CartComponent implements OnInit {
   //     this.quantityAcv--;
   //   }
   // }
+  item: number;
 
   loader() {
     if (this.isLogged) {
@@ -81,16 +105,54 @@ export class CartComponent implements OnInit {
     })
   }
 
-  deletePurchaseDetail(productId: number){
-    this.cartService.deletePurchaseDetail(+this.token.getId(), productId).subscribe(next =>{
-      this.toastrService.success("Sản phẩm đã bị xóa khỏi giỏ hàng", "Thông báo")
-      this.share.sendClickEvent();
+  deletePurchaseDetail(productId: number, name: string){
+    Swal.fire({
+      title: "Bạn có muốn xóa sản phẩm: "+name+ " ra khỏi giỏ hàng không?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#007bff",
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+    }).then((result) =>{
+      if (result.isConfirmed) {
+        this.cartService.deletePurchaseDetail(+this.token.getId(), productId).subscribe(next =>{
+          this.toastrService.success("Sản phẩm đã bị xóa khỏi giỏ hàng", "Thông báo")
+          this.share.sendClickEvent();
+        })
+      }
     })
   }
 
-  updateQuantity(productId: number, quantity: number) {
+  updateQuantity(productId: number, quantity: number, name: string) {
     this.cartService.updateCart(+this.token.getId(), productId, quantity).subscribe(next => {
       this.share.sendClickEvent();
+    }, error => {
+      if (error.error === 'errorQuantity') {
+        Swal.fire({
+          title: "Số lượng sản phẩm cần mua phải lớn hơn hoặc bằng 1",
+          text: "Bạn có muốn xóa sản phẩm: " +name+ " khỏi giỏ hàng không?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#007bff",
+          confirmButtonText: "Xóa",
+          cancelButtonText: "Hủy",
+        }).then((result) =>{
+          if (result.isConfirmed) {
+            this.cartService.deletePurchaseDetail(+this.token.getId(), productId).subscribe(next =>{
+              this.toastrService.success("Sản phẩm đã bị xóa khỏi giỏ hàng", "Thông báo")
+            })
+          }
+        })
+      }
+
+      if (error.error === 'errorQuantityFormat') {
+        this.toastrService.warning("số lượng cần mua phải là một số", "Thông báo")
+      }
+
+      if (error.error === 'exceedTheAmount'){
+        this.toastrService.warning("Bạn đã nhập quá số lượng trong kho", "Thông báo")
+      }
+      this.share.sendClickEvent()
     })
   }
 }

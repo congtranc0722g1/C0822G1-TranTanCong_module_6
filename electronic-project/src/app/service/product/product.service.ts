@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../../model/product/product";
+import {Cart} from "../../model/cart/cart";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,13 @@ export class ProductService {
 
   countProduct(){
     return this.httpClient.get<number>("http://localhost:8080/product/count-product/");
+  }
+
+  updateQuantityProduct(cartList: Cart[]){
+    return this.httpClient.put("http://localhost:8080/product/update-quantity-product", cartList);
+  }
+
+  findProductByCategory(categoryId: number){
+    return this.httpClient.get<Product[]>("http://localhost:8080/product/product-by-category?categoryId=" + categoryId);
   }
 }

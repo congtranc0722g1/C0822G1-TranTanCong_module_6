@@ -1,9 +1,12 @@
 package com.electronic_project.service.impl;
 
+import com.electronic_project.dto.purchase.IPurchaseHistoryDto;
 import com.electronic_project.model.purchase.Purchase;
 import com.electronic_project.repository.IPurchaseRepository;
 import com.electronic_project.service.IPurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +41,12 @@ public class PurchaseService implements IPurchaseService {
     }
 
     @Override
-    public void updatePurchase(Integer purchaseStatus, String orderDate, Integer id) {
-        purchaseRepository.updatePurchase(purchaseStatus, orderDate, id);
+    public void updatePurchase(Integer purchaseStatus, String orderDate, String customerName, String customerPhone, String customerAddress, Integer id) {
+        purchaseRepository.updatePurchase(purchaseStatus, orderDate, customerName, customerPhone, customerAddress, id);
     }
+
+//    @Override
+//    public Page<IPurchaseHistoryDto> showAll(Integer id, Pageable pageable) {
+//        return purchaseRepository.showAll(id, pageable);
+//    }
 }
