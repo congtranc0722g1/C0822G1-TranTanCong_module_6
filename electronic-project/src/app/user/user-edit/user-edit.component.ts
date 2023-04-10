@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../model/user/user";
 import {LoginService} from "../../service/login/login.service";
 import {TokenService} from "../../service/login/token.service";
@@ -10,6 +10,7 @@ import {formatDate} from "@angular/common";
 import {AngularFireStorage} from "@angular/fire/storage";
 import {finalize} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-user-edit',
@@ -17,17 +18,20 @@ import {Observable} from "rxjs";
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+  errors = {
+    email: '', phone: '', name: '', address: ''
+  };
   user: User;
   isLogged = false;
   selectedImage: any = null;
   form: FormGroup = new FormGroup({
     id: new FormControl(),
-    name: new FormControl(),
+    name: new FormControl("", Validators.pattern("^([A-Z]+[a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]*[ ])*([A-Z]+[a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]*)$")),
     gender: new FormControl(),
-    email: new FormControl(),
+    email: new FormControl("", Validators.pattern("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")),
     dateOfBirth: new FormControl(),
-    phone: new FormControl(),
-    address: new FormControl(),
+    phone: new FormControl("", Validators.pattern("^(0|\\+84)\\d{9}$")),
+    address: new FormControl("", Validators.maxLength(250)),
     avatar: new FormControl()
   });
   downloadURL: Observable<string> | undefined;
@@ -38,12 +42,15 @@ export class UserEditComponent implements OnInit {
               private share: ShareService,
               private userService: UserService,
               private toastrService: ToastrService,
-              @Inject(AngularFireStorage) private storage: AngularFireStorage) {
+              @Inject(AngularFireStorage) private storage: AngularFireStorage,
+              private titleService: Title) {
     this.share.getClickEvent().subscribe(next => {
       this.loader();
     })
     this.isLogged = this.token.isLogger()
     this.loader()
+
+    this.titleService.setTitle("Thông tin cá nhân");
   }
 
   ngOnInit(): void {
@@ -63,10 +70,13 @@ export class UserEditComponent implements OnInit {
   }
 
   updateUser() {
-    this.userService.updateUser(this.form.value).subscribe(next => {
-      this.share.sendClickEvent();
-      this.toastrService.success("Cập nhật thành công", "Thông báo")
-    })
+    if (this.form.valid){
+      this.userService.updateUser(this.form.value).subscribe(next => {
+        this.share.sendClickEvent();
+        this.toastrService.success("Cập nhật thành công", "Thông báo")
+      })
+    }
+
   }
 
   loader() {

@@ -21,15 +21,6 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByUsername(@Param("username") String username);
 
 
-//    @Modifying
-//    @Query(value = "update user set name = :name,phone_number = :phone_number,email = :email," +
-//            " address = :address,age = :age,gender = :gender,date_of_birth = :date_of_birth,avatar = :avatar" +
-//            " where username = :username  ", nativeQuery = true)
-//    void updateUser(@Param("name") String name, @Param("phone_number") String phoneNumber, @Param("email") String email
-//            , @Param("address") String address, @Param("age") Integer age, @Param("gender") Boolean gender
-//            , @Param("date_of_birth") String dateOfBirth, @Param("avatar") String avatar, @Param("username") String username);
-
-
     @Modifying
     @Query(value = "update user set password = :password where username = :username",nativeQuery = true)
     void changePassword(@Param("password") String password,@Param("username") String username);
@@ -38,8 +29,8 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     List<User> getAllUser();
 
     @Modifying
-    @Query(value = "insert into user (name,username,email,password) values (:name,:username,:email,:password)", nativeQuery = true)
-    void save(@Param("name") String name, @Param("username") String username, @Param("email") String email, @Param("password") String password);
+    @Query(value = "insert into user (username,email,password, avatar, flag_delete) values (:username,:email,:password,'https://firebasestorage.googleapis.com/v0/b/electronic-project-b2039.appspot.com/o/th.jpg?alt=media&token=538b1818-b013-4985-915e-1a29bc2a0fb2', true)", nativeQuery = true)
+    void save(@Param("username") String username, @Param("email") String email, @Param("password") String password);
 
     @Modifying
     @Query(value = "insert into user_roles (user_id,roles_id) values (:user,:role)", nativeQuery = true)

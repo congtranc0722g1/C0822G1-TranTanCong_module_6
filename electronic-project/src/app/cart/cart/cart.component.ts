@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {SearchProductService} from "../../service/product/search-product.service";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-cart',
@@ -30,11 +31,21 @@ export class CartComponent implements OnInit {
               private cartService: CartService,
               private share: ShareService,
               private router: Router,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private titleService: Title) {
+
+    this.isLogged = this.token.isLogger()
+    this.loader()
+    this.share.getClickEvent().subscribe(next => {
+      this.isLogged = this.token.isLogger()
+      this.loader();
+    })
     this.share.getClickEvent().subscribe(next => {
       this.getCart(+this.token.getId());
       this.getTotalPayment(+this.token.getId());
     })
+
+    this.titleService.setTitle("Giỏ hàng");
   }
 
   ngOnInit(): void {
@@ -154,5 +165,26 @@ export class CartComponent implements OnInit {
       }
       this.share.sendClickEvent()
     })
+  }
+
+  payment(){
+    if (this.user.name === null || this.user.phone === null || this.user.address === null){
+      Swal.fire({
+        title: "Không thể thanh toán!",
+        text: "Cần cập nhật đầy đủ tên, số điện thoại và địa chỉ trước khi thanh toán",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#007bff",
+        confirmButtonText: "Cập nhật!",
+        cancelButtonText: "Hủy",
+      }).then((result) =>{
+        if (result.isConfirmed) {
+          this.router.navigate(['/user/profile'])
+        }
+      })
+    }else {
+      this.router.navigateByUrl("/cart/payment")
+    }
+
   }
 }

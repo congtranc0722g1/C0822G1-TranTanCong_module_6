@@ -6,12 +6,12 @@
       <!-- Price Start -->
       <div class="border-bottom mb-4 pb-4">
         <h5 class="font-weight-semi-bold mb-4">Danh mục sản phẩm</h5>
-        <div (click)="searchSaleProductList(-1, trademark1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+        <div (click)="searchSaleProductList(-1, trademark1, nameSearch, page)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
           <input type="radio" checked name="category" class="custom-control-input" id="all">
           <label class="custom-control-label" for="all">Tất cả</label>
           <span class="badge border font-weight-normal">{{countProduct}} sản phẩm</span>
         </div>
-        <div (click)="searchSaleProductList(category.id, trademark1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let category of categoryList">
+        <div (click)="searchSaleProductList(category.id, trademark1, nameSearch, page)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let category of categoryList">
             <input [checked]="category.id == category1" type="radio" name="category" class="custom-control-input" id="category{{category.id}}">
           <label class="custom-control-label" for="category{{category.id}}">{{category.name}}</label>
           <span class="badge border font-weight-normal">{{category.total}} sản phẩm</span>
@@ -23,12 +23,12 @@
       <div class="border-bottom mb-4 pb-4">
         <h5 class="font-weight-semi-bold mb-4">Thương hiệu</h5>
         <form>
-          <div (click)="searchSaleProductList(category1, -1, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+          <div (click)="searchSaleProductList(category1, -1, nameSearch, page)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" style="cursor: pointer">
             <input type="radio" checked name="trademark" value="-1" class="custom-control-input" id="all-trademark">
             <label class="custom-control-label" for="all-trademark">Tất cả</label>
             <span class="badge border font-weight-normal">{{countProduct}} sản phẩm</span>
           </div>
-          <div (click)="searchSaleProductList(category1, trademark.id, nameSearch)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let trademark of trademarkList">
+          <div (click)="searchSaleProductList(category1, trademark.id, nameSearch, page)" class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv" *ngFor="let trademark of trademarkList">
             <input type="radio" name="trademark" value="1"  class="custom-control-input" id="trademark{{trademark.id}}">
             <label class="custom-control-label" for="trademark{{trademark.id}}">{{trademark.name}}</label>
               <span class="badge border font-weight-normal">{{trademark.total}} sản phẩm</span>
@@ -79,102 +79,118 @@
               <div class="input-group">
                 <input [value]="nameSearch" type="text" #name class="form-control" placeholder="Nhập tên sản phẩm">
                 <div class="input-group-append">
-                                        <button class="input-group-text bg-transparent text-primary" (click)="searchSaleProductList(category1, trademark1, name.value)">
+                                        <button class="input-group-text bg-transparent text-primary" (click)="searchSaleProductList(category1, trademark1, name.value, page)">
                                             <i class="fa fa-search"></i>
                                         </button>
                 </div>
               </div>
             </form>
             <div class="dropdown ml-4">
-              <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false">
-                Sắp xếp
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                <a class="dropdown-item" href="#">Hàng mới nhất</a>
-                <a class="dropdown-item" href="#">Bán chạy nhất</a>
-                <a class="dropdown-item" href="#">Giá từ thấp đến cao</a>
-                <a class="dropdown-item" href="#">Giá từ cao xuống thấp</a>
-              </div>
+<!--              <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"-->
+<!--                      aria-expanded="false">-->
+<!--                Sắp xếp-->
+<!--              </button>-->
+<!--              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">-->
+<!--                <a class="dropdown-item" href="#">Hàng mới nhất</a>-->
+<!--                <a class="dropdown-item" href="#">Bán chạy nhất</a>-->
+<!--                <a class="dropdown-item" href="#">Giá từ thấp đến cao</a>-->
+<!--                <a class="dropdown-item" href="#">Giá từ cao xuống thấp</a>-->
+<!--              </div>-->
             </div>
           </div>
         </div>
 
-        <div *ngFor="let saleProduct of saleProductList" class="col-lg-4 col-md-6 col-sm-12 pb-1" >
-<!--          <div class="card product-item border-0 mb-4">-->
-<!--            <div [routerLink]="['/detail', saleProduct.id]">-->
-<!--              <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 230px">-->
-<!--                <img class="img-fluid w-100" src="{{saleProduct.images[0].url}}" height="250" alt="">-->
-<!--              </div>-->
-<!--              <div class="card-body border-left border-right text-center p-0 pt-4 pb-3" style="height: 120px">-->
-<!--                <div style="height: 65px">-->
-<!--                  <h6 class="mb-3 ml-3 mr-3" style="text-align: left">{{saleProduct.name | slice:0:60}}</h6>-->
-<!--                </div>-->
-<!--                <div class="d-flex justify-content-center">-->
-<!--                  <h6 class="text-danger">{{saleProduct.price | number:'1.0-0'}} VNĐ</h6>-->
-<!--                  &lt;!&ndash;            <h6 class="text-muted ml-2">&ndash;&gt;-->
-<!--                  &lt;!&ndash;              <del>$123.00</del>&ndash;&gt;-->
-<!--                  &lt;!&ndash;            </h6>&ndash;&gt;-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="card-footer d-flex justify-content-center bg-light border">-->
-<!--              &lt;!&ndash;          <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Chi tiết</a>&ndash;&gt;-->
-<!--              <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ hàng</a>-->
-<!--            </div>-->
-<!--          </div>-->
+        <div *ngFor="let saleProduct of saleProductList" class="col-lg-4 col-md-6 col-sm-12 pb-1" style="cursor: pointer">
           <div class="card product-item border-0 mb-4">
             <div [routerLink]="['/detail', saleProduct.id]">
               <div class="image-wrapper">
-                <img *ngIf="saleProduct.quantity<1" class="center-image" src="https://firebasestorage.googleapis.com/v0/b/electronic-project-b2039.appspot.com/o/hethang-removebg-preview.png?alt=media&token=d230a6a0-d99c-443e-8fdd-cdc5ba58501b" width="120" height="120" alt="">
+                <img *ngIf="saleProduct.quantity < 1" class="center-image" src="https://firebasestorage.googleapis.com/v0/b/electronic-project-b2039.appspot.com/o/hethang-removebg-preview.png?alt=media&token=d230a6a0-d99c-443e-8fdd-cdc5ba58501b" width="120" height="120" alt="">
               <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 230px">
                 <img class="background-image img-fluid w-100" src="{{saleProduct.images[0].url}}" height="250" alt="">
               </div>
               </div>
-              <div class="card-body border-left border-right text-center p-0 pt-4 pb-3" style="height: 120px">
+              <div class="card-body border-left border-right border-bottom text-center p-0 pt-4 pb-3" style="height: 120px">
                 <div style="height: 65px">
                   <h6 class="mb-3 ml-3 mr-3" style="text-align: left">{{saleProduct.name | slice:0:60}}</h6>
                 </div>
                 <div class="d-flex justify-content-center">
                   <h6 class="text-danger">{{saleProduct.price | number:'1.0-0'}} VNĐ</h6>
-                  <!--            <h6 class="text-muted ml-2">-->
-                  <!--              <del>$123.00</del>-->
-                  <!--            </h6>-->
                 </div>
               </div>
             </div>
-            <button [disabled]="saleProduct.quantity< 1" (click)="addCart(saleProduct.id)" class="btn px-3 d-flex justify-content-center border" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
-              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-            </button>
-<!--            <div class="d-flex justify-content-center bg-light border btn btn-primary" (click)="addCart(saleProduct.id)">-->
-<!--              &lt;!&ndash;          <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Chi tiết</a>&ndash;&gt;-->
-<!--              <i disabled class="fas fa-shopping-cart text-primary mr-1"></i>-->
-<!--            </div>-->
+
+            <button *ngIf="role != 'ROLE_ADMIN'" [disabled]="saleProduct.quantity< 1" (click)="addCart(saleProduct.id)" class="button">Thêm vào giỏ hàng</button>
           </div>
 
         </div>
-        <div class="col-12 pb-1">
-          <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center mb-3">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Previous</span>
-                </a>
-              </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+<!--        <div class="col-12 pb-1">-->
+<!--          <nav aria-label="Page navigation">-->
+
+<!--          </nav>-->
+<!--        </div>-->
+
+        <div class="col-lg-12 col-md-12 col-sm-12 pb-1" >
+          <div class="align-content-center">
+            <div *ngIf="productPage" class="d-flex justify-content-center" id="last-row">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item" [ngClass]="productPage.first ? 'disabled': ''">
+                    <a role="button" class="page-link" (click)="searchSaleProductList(category1, trademark1, name.value, 0)">Trang đầu</a>
+                  </li>
+                  <li class="page-item" [ngClass]="productPage.first ? 'disabled': ''">
+                    <a role="button" class="page-link" (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number - 1)"><</a>
+                  </li>
+                  <li class="page-item" *ngIf="productPage.number - 3 > 0">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number - 4)">{{productPage.number - 3}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="productPage.number - 2 > 0">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number - 3)">{{productPage.number - 2}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="productPage.number - 1 > 0">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number - 2)">{{productPage.number - 1}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="productPage.number > 0">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number - 1)">{{productPage.number}}</a>
+                  </li>
+                  <li class="page-item active"><a class="page-link">{{productPage.number + 1}}</a></li>
+                  <li class="page-item" *ngIf="productPage.number + 2 <= productPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number + 1)">{{productPage.number + 2}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="productPage.number + 3 <= productPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number + 2)">{{productPage.number + 3}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="productPage.number + 4 <= productPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number + 3)">{{productPage.number + 4}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="productPage.number + 5 <= productPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number + 4)">{{productPage.number + 5}}</a>
+                  </li>
+                  <li class="page-item" [ngClass]="productPage.last ? 'disabled': ''">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.number + 1)">></a>
+                  </li>
+                  <li class="page-item" [ngClass]="productPage.last ? 'disabled': ''">
+                    <a role="button" class="page-link"
+                       (click)="searchSaleProductList(category1, trademark1, name.value,productPage.totalPages - 1)">
+                      Trang cuối
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>
+
+
+
       </div>
     </div>
     <!-- Shop Product End -->

@@ -1,37 +1,34 @@
 <main role="main">
-  <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
   <div class="container mt-4">
-    <form class="needs-validation" name="frmthanhtoan" method="post"
-          action="#">
+    <form class="needs-validation" [formGroup]="form">
       <input type="hidden" name="kh_tendangnhap" value="dnpcuong">
 
       <div class="py-5 text-center">
         <i class="fa fa-credit-card fa-4x" aria-hidden="true"></i>
         <h2>Thanh toán</h2>
-        <p class="lead">Vui lòng kiểm tra thông tin Khách hàng, thông tin Giỏ hàng trước khi Đặt hàng.</p>
+        <p class="lead">Vui lòng kiểm tra thông tin Khách hàng, thông tin giỏ hàng trước khi đặt hàng.</p>
       </div>
 
       <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span>Giỏ hàng</span>
-            <span class="badge badge-secondary badge-pill">{{cartList.length}} sản phẩm</span>
+<!--            <span class="badge badge-primary badge-pill">{{cartList.length}} sản phẩm</span>-->
           </h4>
           <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let cart of cartList">
               <div>
                 <h6 class="my-0">{{cart.name}}</h6>
-                <small class="text-muted">{{cart.price}} x {{cart.quantity}}</small>
+                <small><span class="text-danger">{{cart.price | number:'1.0-0'}} VNĐ</span> x {{cart.quantity}}</small>
               </div>
-              <span class="text-muted">{{cart.total}}</span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Tiền phí vận chuyển</span>
-              <strong *ngIf="totalPayment> 0">Miễn phí</strong>
+              <strong class="text-danger" *ngIf="totalPayment> 0">Miễn phí</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Tổng thành tiền</span>
-              <strong *ngIf="totalPayment> 0">{{totalPayment}}</strong>
+              <strong class="text-danger" *ngIf="totalPayment> 0">{{totalPayment | number:'1.0-0'}} VNĐ</strong>
             </li>
           </ul>
           <div class="input-group mb-3">
@@ -50,43 +47,27 @@
           <h4 class="mb-3">Thông tin nhận hàng</h4>
 
           <div class="row">
-            <div class="col-md-12">
-              <label for="kh_ten">Họ tên</label>
-              <input [(ngModel)]="user.name" type="text" class="form-control mb-3" name="kh_ten" id="kh_ten" value="{{user.name}}">
+            <div class="col-md-12 mb-3" style="position: relative">
+              <h6 for="kh_ten">Họ tên người nhận</h6>
+              <input formControlName="name" type="text" class="form-control" id="kh_ten">
+              <p style="position: absolute" *ngIf="(form.controls.name.hasError('required')) || form.controls.name.hasError('required') && form.controls.name.touched" style="color: red">Không được để trống</p>
             </div>
-<!--            <div class="col-md-12">-->
-<!--              <label for="kh_gioitinh">Giới tính</label>-->
-<!--              <input type="text" class="form-control" name="kh_gioitinh" id="kh_gioitinh" value="{{user.gender}}"-->
-<!--                     readonly="">-->
-<!--            </div>-->
+
             <div class="col-md-12">
-              <label for="kh_dienthoai">Điện thoại</label>
-              <input  type="text" class="form-control mb-3" name="kh_dienthoai" id="kh_dienthoai"
-                      [(ngModel)]="user.phone" >
+              <h6 for="kh_dienthoai">Số điện thoại</h6>
+              <input formControlName="phone" type="text" class="form-control mb-4" id="kh_dienthoai">
+              <p style="color: red" *ngIf="form.controls.phone.hasError('required') && form.controls.phone.touched">Không được để trống</p>
+              <p style="color: red" *ngIf="form.controls.phone.hasError('pattern')">Số điện thoại không đúng định dạng. Ví dụ: 0937110xxx</p>
             </div>
             <div class="col-md-12">
-              <label for="kh_diachi">Địa chỉ</label>
-              <input type="text" class="form-control mb-3" name="kh_diachi" id="kh_diachi"
-                     [(ngModel)]="user.address" >
+              <h6 for="kh_diachi">Địa chỉ</h6>
+              <input formControlName="address" type="text" class="form-control mb-4" id="kh_diachi">
+              <p *ngIf="(form.controls.address.hasError('required')) || form.controls.address.hasError('required') && form.controls.address.touched" style="color: red">Không được để trống</p>
             </div>
-<!--            <div class="col-md-12">-->
-<!--              <label for="kh_ngaysinh">Ngày sinh</label>-->
-<!--              <input type="text" class="form-control" name="kh_ngaysinh" id="kh_ngaysinh"-->
-<!--                     value="{Ơ" readonly="">-->
-<!--            </div>-->
-<!--            <div class="col-md-12">-->
-<!--              <label for="kh_cmnd">CMND</label>-->
-<!--              <input type="text" class="form-control" name="kh_cmnd" id="kh_cmnd" value="362209685"-->
-<!--                     readonly="">-->
-<!--            </div>-->
           </div>
-<!--          <button *ngIf="temp!=1" class="btn btn-primary btn-lg btn-block" type="submit" name="btnDatHang">Đặt-->
-<!--            hàng</button>-->
-<!--          <div id="buttonPayment"></div>-->
         </div>
       </div>
     </form>
 
   </div>
-  <!-- End block content -->
 </main>

@@ -2,6 +2,7 @@ package com.electronic_project.controller;
 
 import com.electronic_project.dto.cart.ICartDto;
 import com.electronic_project.dto.cart.UpdateQuantityCartDto;
+import com.electronic_project.dto.product.IRevenueProductDto;
 import com.electronic_project.dto.product.ProductDto;
 import com.electronic_project.model.product.Product;
 import com.electronic_project.service.IProductService;
@@ -35,14 +36,11 @@ public class ProductController {
         return new ResponseEntity<>(latestProductList, HttpStatus.OK);
     }
 
-//    @GetMapping("/sale-product")
-//    private ResponseEntity<Page<Product>> showSaleProductList(@RequestParam(value = "category") Integer category, @RequestParam(value = "trademark") Integer trademark, @RequestParam(value = "name") String name, @PageableDefault(size = 9)Pageable pageable){
-//        Page<Product> productList = productService.showAll(category, trademark, name, pageable);
-//        return new ResponseEntity<>(productList, HttpStatus.OK);
-//    }
-
     @GetMapping("/list-product")
-    private ResponseEntity<Page<Product>> showSaleProductList(@RequestParam(value = "categoryId") Integer categoryId, @RequestParam(value = "trademarkId") Integer trademarkId, @RequestParam(value = "name", defaultValue = "") String name,  @PageableDefault(size = 9)Pageable pageable){
+    private ResponseEntity<Page<Product>> showSaleProductList(@RequestParam(value = "categoryId") Integer categoryId,
+                                                              @RequestParam(value = "trademarkId") Integer trademarkId,
+                                                              @RequestParam(value = "name", defaultValue = "") String name,
+                                                              @PageableDefault(size = 9)Pageable pageable){
 
         Page<Product> productList = null;
 
@@ -84,7 +82,9 @@ public class ProductController {
         Product product = new Product();
         BeanUtils.copyProperties(productDto, product);
 
-        productService.addProduct(product.getCode(), product.getName(), product.getCreateDay(), product.getDescription(), product.getPrice(), product.getEntryPrice(), product.getQuantity(), product.getFlagDelete(), product.getCategory().getId(), product.getTrademark().getId());
+        productService.addProduct(product.getCode(), product.getName(), product.getCreateDay(), product.getDescription(),
+                product.getPrice(), product.getEntryPrice(), product.getQuantity(), product.getFlagDelete(),
+                product.getCategory().getId(), product.getTrademark().getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -115,5 +115,53 @@ public class ProductController {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         }
         return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @GetMapping("/revenue-product")
+    private ResponseEntity<List<IRevenueProductDto>> showRevenueProduct(){
+        List<IRevenueProductDto> revenueProductDtoList = productService.showRevenueProduct();
+        return new ResponseEntity<>(revenueProductDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list-product-manager")
+    private ResponseEntity<Page<Product>> showSaleProductManagerList(@RequestParam(value = "categoryId") Integer categoryId, @RequestParam(value = "trademarkId") Integer trademarkId, @RequestParam(value = "name", defaultValue = "") String name,  @PageableDefault(size = 5)Pageable pageable){
+
+        Page<Product> productList = null;
+
+        if (categoryId == -1 && trademarkId == -1){
+            productList = productService.showAll(name, pageable);
+        }
+
+        if (categoryId != -1 && trademarkId != -1){
+            productList = productService.getAllProduct(categoryId, trademarkId, name, pageable);
+        }
+
+        if (categoryId == -1 && trademarkId != -1){
+            productList = productService.getTrademarkProduct(trademarkId, name, pageable);
+        }
+
+        if (categoryId != -1 && trademarkId == -1){
+            productList = productService.getCategoryProduct(categoryId, name, pageable);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    private ResponseEntity<?> updateProduct(@RequestBody @Validated ProductDto productDto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        productDto.setPrice(productDto.getEntryPrice() + productDto.getEntryPrice() * 0.2);
+        Product product = new Product();
+        BeanUtils.copyProperties(productDto, product);
+        productService.updateProduct(product.getName(), product.getDescription(), product.getPrice(), product.getEntryPrice(), product.getQuantity(), product.getCategory().getId(), product.getTrademark().getId(), product.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping ("/delete")
+    private ResponseEntity<?> deleteProduct(@RequestBody Product product){
+        productService.deleteProduct(product.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

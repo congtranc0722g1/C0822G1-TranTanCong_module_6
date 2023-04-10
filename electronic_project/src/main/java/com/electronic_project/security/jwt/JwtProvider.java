@@ -12,8 +12,8 @@ import java.util.Date;
 @Component
 public class JwtProvider {
     private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
-    private String jwtSecret = "mainvov@gmail.com";
-    private int jwtExpiration = 86400;
+    private String jwtSecret = "mainvov@gmail.com"; //chữ ký của token
+    private int jwtExpiration = 86400; // thời gian sống
 
     public String createToken(Authentication authentication) {
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();

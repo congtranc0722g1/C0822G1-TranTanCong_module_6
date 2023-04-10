@@ -5,6 +5,9 @@ import {TrademarkService} from "../../service/product/trademark.service";
 import {Category} from "../../model/product/category";
 import {Trademark} from "../../model/product/trademark";
 import {ProductService} from "../../service/product/product.service";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-product-create',
@@ -25,7 +28,15 @@ export class ProductCreateComponent implements OnInit {
   categoryList: Category[] = [];
   trademarkList: Trademark[] = [];
 
-  constructor(private productService: ProductService, private categoryService: CategoryService, private trademarkService: TrademarkService) { }
+  constructor(private productService: ProductService,
+              private categoryService: CategoryService,
+              private trademarkService: TrademarkService,
+              private toastrService: ToastrService,
+              private router: Router,
+              private titleService: Title) {
+
+    this.titleService.setTitle("Thêm mới sản phẩm");
+  }
 
   ngOnInit(): void {
     this.categoryService.showAll().subscribe(next => {
@@ -41,12 +52,12 @@ export class ProductCreateComponent implements OnInit {
   createProduct() {
     if (this.form.valid){
       this.productService.addProduct(this.form.value).subscribe(next => {
-        alert("Thêm mới thành công")
+        this.toastrService.success("Thêm mới thành công", "Thông báo")
+        this.router.navigateByUrl("/product/list")
       })
     }
   }
 
   reset() {
-
   }
 }

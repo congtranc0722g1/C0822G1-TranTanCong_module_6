@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../../model/product/product";
 import {Cart} from "../../model/cart/cart";
+import {RevenueProduct} from "../../model/product/revenue-product";
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,21 @@ export class ProductService {
 
   findProductByCategory(categoryId: number){
     return this.httpClient.get<Product[]>("http://localhost:8080/product/product-by-category?categoryId=" + categoryId);
+  }
+
+  showRevenueProduct(){
+    return this.httpClient.get<RevenueProduct[]>("http://localhost:8080/product/revenue-product");
+  }
+
+  showManagerProductList(category: number, trademark: number, name: string,  page: number) {
+    return this.httpClient.get<any>("http://localhost:8080/product/list-product-manager?categoryId=" + category + "&trademarkId=" + trademark + "&name=" + name + "&page=" + page);
+  }
+
+  updateProduct(product: Product){
+    return this.httpClient.put("http://localhost:8080/product/update", product)
+  }
+
+  deleteProduct(product: Product){
+    return this.httpClient.put("http://localhost:8080/product/delete", product);
   }
 }

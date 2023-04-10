@@ -10,14 +10,14 @@
                 <label for="file-input"  style="position: absolute" class="change-pic-btn center-image"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
                   <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
                   <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
-                </svg><input (change)="showPreview($event)" id="file-input" type="file" style="display: none"></label>
+                </svg><input (change)="showPreview($event)" id="file-input" type="file" hidden></label>
               </div>
 <!--              <button class="btn btn-primary" (click)="update()">Lưu</button>-->
               <h5 class="user-name">{{user.name}}</h5>
               <h6 class="user-us">@{{user.username}}</h6>
             </div>
             <div class="about">
-              <button class="btn btn-primary">Đổi mật khẩu</button>
+              <button routerLink="/profile/change-password" class="btn btn-primary">Đổi mật khẩu</button>
             </div>
           </div>
         </div>
@@ -31,19 +31,20 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <h4 class="mb-4 text-primary">Thông tin cá nhân</h4>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
               <div class="form-group">
                 <label for="fullName" class="font-weight-bold">Họ và tên</label>
-                <input formControlName="name" type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên">
+                <input style="position: relative" formControlName="name" type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên">
+                <p style="color: red; position: absolute; font-size: 15px" *ngIf="form.controls.name.hasError('pattern') && form.controls.name.touched">Tên không đúng định dạng. Ví dụ: Nguyễn Văn A</p>
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
               <div class="form-group">
                 <label for="dayOfBirth" class="font-weight-bold">Ngày sinh</label>
                 <input formControlName="dateOfBirth" type="date" class="form-control" id="dayOfBirth" placeholder="Nhập ngày sinh">
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 flex">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 flex mb-3">
               <div class="form-group">
                 <label class="font-weight-bold">Giới tính</label>
                 <br>
@@ -59,22 +60,25 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
               <div class="form-group">
                 <label for="phone" class="font-weight-bold">Số điện thoại</label>
-                <input formControlName="phone" type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                <input style="position: relative" formControlName="phone" type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                <p style="color: red; position: absolute; font-size: 15px" *ngIf="form.controls.phone.hasError('pattern') && form.controls.phone.touched">Số điện thoại không đúng định dạng. Ví dụ: 0937110xxx</p>
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
               <div class="form-group">
                 <label for="email" class="font-weight-bold">Email</label>
-                <input formControlName="email" type="text" class="form-control" id="email" placeholder="Nhập email">
+                <input style="position: relative" formControlName="email" type="text" class="form-control" id="email" placeholder="Nhập email">
+                <p style="color: red; position: absolute; font-size: 15px" *ngIf="form.controls.email.hasError('pattern') && form.controls.email.touched">Email không đúng định dạng. Ví dụ: your_email@domain.com</p>
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
               <div class="form-group">
                 <label for="address" class="font-weight-bold">Địa chỉ</label>
-                <input formControlName="address" type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
+                <input style="position: relative" formControlName="address" type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
+                <p style="color: red; position: absolute; font-size: 15px" *ngIf="form.controls.address.hasError('maxlength') && form.controls.address.touched">Địa chỉ không được quá 250 ký tự</p>
               </div>
             </div>
           </div>

@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
   cartList: Cart[] = [];
   totalCart: number = 0;
   isHidden: boolean = true;
+  role = 'none';
   constructor(private router:Router,
               private token:TokenService,
               private loginService:LoginService,
@@ -38,6 +39,7 @@ export class HeaderComponent implements OnInit {
       this.loader();
       this.share.getClickEvent().subscribe(next => {
         this.loader()
+        // this.role = this.token.getRole();
       })
     });
 
@@ -49,6 +51,7 @@ export class HeaderComponent implements OnInit {
     this.share.getClickEvent().subscribe(next => {
       this.getCart(+this.token.getId());
     })
+
   }
 
   ngOnInit(): void {
@@ -79,9 +82,10 @@ export class HeaderComponent implements OnInit {
       this.loginService.profile(this.token.getId()).subscribe(
         next => {
           this.user = next;
-          console.log(next)
         }
+
       )
+      this.role = this.token.getRole();
     }
   }
   searchName(name: string){

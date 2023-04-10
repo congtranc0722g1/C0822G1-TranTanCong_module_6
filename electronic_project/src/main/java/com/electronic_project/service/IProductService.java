@@ -1,5 +1,6 @@
 package com.electronic_project.service;
 
+import com.electronic_project.dto.product.IRevenueProductDto;
 import com.electronic_project.model.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,4 +29,10 @@ public interface IProductService {
     void updateQuantityProduct(Integer quantity, Integer id);
 
     List<Product> findProductByCategory(Integer categoryId);
+
+    List<IRevenueProductDto> showRevenueProduct();
+
+    void updateProduct(String name, String description, Double price, Double entryPrice, Integer quantity, Integer categoryId, Integer trademarkId, Integer id);
+
+    void deleteProduct(Integer id);
 }

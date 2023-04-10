@@ -42,8 +42,16 @@ public class CartController {
         if (purchaseId != -1) {
             if (purchaseDetail == null){
                 if (product.getQuantity()>=1){
-                    cartService.addCart(cartDto.getQuantity(), cartDto.getProductId(), purchaseId);
-                    return new ResponseEntity<>(HttpStatus.OK);
+                    if (cartDto.getQuantity() == null){
+                        return new ResponseEntity<>("errorFormatQuantity", HttpStatus.BAD_REQUEST);
+                    }else if (cartDto.getQuantity() > product.getQuantity()){
+                        return new ResponseEntity<>("exceedTheAmount", HttpStatus.BAD_REQUEST);
+                    } else if (cartDto.getQuantity() < 1) {
+                        return new ResponseEntity<>("errorInputQuantity", HttpStatus.BAD_REQUEST);
+                    }else {
+                        cartService.addCart(cartDto.getQuantity(), cartDto.getProductId(), purchaseId);
+                        return new ResponseEntity<>(HttpStatus.OK);
+                    }
                 }else {
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 }
@@ -53,7 +61,7 @@ public class CartController {
                 Integer newQuantity = purchaseDetail.getQuantity() + cartDto.getQuantity();
                 if (newQuantity < 1 ){
                     return new ResponseEntity<>("errorQuantity",HttpStatus.BAD_REQUEST);
-                }else if (newQuantity > product.getQuantity()){
+                } else if (newQuantity > product.getQuantity()){
                     cartService.updateCart(purchaseDetail.getQuantity(), cartDto.getProductId(), purchaseId);
                     return new ResponseEntity<>("exceedTheAmount", HttpStatus.BAD_REQUEST);
                 }else {
@@ -67,8 +75,15 @@ public class CartController {
             String code = purchaseService.checkCode();
             purchaseService.addPurchase(code, 1, cartDto.getUserId());
             Integer purchaseIdNew = cartService.checkPurchase(cartDto.getUserId());
-            cartService.addCart(cartDto.getQuantity(), cartDto.getProductId(), purchaseIdNew);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if (cartDto.getQuantity() == null){
+                return new ResponseEntity<>("errorFormatQuantity", HttpStatus.BAD_REQUEST);
+            } else if (cartDto.getQuantity()> product.getQuantity()){
+                return new ResponseEntity<>("exceedTheAmount", HttpStatus.BAD_REQUEST);
+            }else {
+                cartService.addCart(cartDto.getQuantity(), cartDto.getProductId(), purchaseIdNew);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

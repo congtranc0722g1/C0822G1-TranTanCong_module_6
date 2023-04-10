@@ -1,5 +1,6 @@
 package com.electronic_project.controller;
 
+import com.electronic_project.dto.request.ChangePasswordForm;
 import com.electronic_project.dto.request.SignInForm;
 import com.electronic_project.dto.request.SignUpForm;
 import com.electronic_project.dto.response.JwtResponse;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @RequestMapping("/api/auth")
@@ -40,13 +42,6 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtProvider jwtProvider;
-    /**
-     * Created by: CuongVV
-     * Date created: 27/2/2023
-     * Function: sign up to create user with sign up form
-     * @param signUpForm
-     * @return
-     */
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm, BindingResult bindingResult) {
         new SignUpForm().validate(iUserService.findAll(),signUpForm,bindingResult);
@@ -59,7 +54,7 @@ public class AuthController {
         if (iUserService.existsByEmail(signUpForm.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("Email " + signUpForm.getEmail() + " đã được sử dụng"), HttpStatus.BAD_REQUEST);
         }
-        User user = new User(signUpForm.getUsername(), passwordEncoder.encode(signUpForm.getPassword()), signUpForm.getName(), signUpForm.getEmail());
+        User user = new User(signUpForm.getUsername(), passwordEncoder.encode(signUpForm.getPassword()), signUpForm.getEmail());
         Set<String> strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
         strRoles.forEach(role -> {
@@ -100,8 +95,32 @@ public class AuthController {
                 userPrinciple.getDateOfBirth()
                 , userPrinciple.getAuthorities()));
     }
+
     @RequestMapping("/profile/{id}")
     public ResponseEntity<User> profile(@PathVariable("id") int id) {
         return new ResponseEntity<>(iUserService.findById(id),HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
+        if (!Objects.equals(changePasswordForm.getNewPassword(), changePasswordForm.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword","confirmPassword","Mật khẩu xác nhận không trùng với mật khẩu mới");
+//            return new  ResponseEntity<>(new ResponseMessage("Mật khẩu xác nhận " +
+//                    changePasswordForm.getConfirmPassword() +" không trùng với mật khẩu mới " + changePasswordForm.getNewPassword()),HttpStatus.BAD_REQUEST);
+        }
+        User user = iUserService.findByUsername(changePasswordForm.getUsername()).orElse(null);
+        assert user != null;
+        if (!passwordEncoder.matches(changePasswordForm.getPassword(), user.getPassword())) {
+            bindingResult.rejectValue("password","password","Bạn đã nhập sai mật khẩu cũ");
+        }
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(),HttpStatus.BAD_REQUEST);
+        }
+        if (passwordEncoder.matches(changePasswordForm.getPassword(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(changePasswordForm.getNewPassword()));
+            iUserService.changePassword(user.getPassword(),user.getUsername());
+            return new ResponseEntity<>(new ResponseMessage("Cập nhật mật khẩu thành công"),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseMessage("Thay đổi mật khẩu thất bại"),HttpStatus.BAD_REQUEST);
     }
 }

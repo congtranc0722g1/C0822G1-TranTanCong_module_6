@@ -1,18 +1,23 @@
 package com.electronic_project.dto.user;
 
-import javax.persistence.Column;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class UserDto {
     private Integer id;
     private String username;
     private String password;
+//    @Pattern(regexp = "^([A-Z]+[a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]*[ ])*([A-Z]+[a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]*)$",message = "Tên không hợp lệ. Ví dụ: Nguyễn Văn A")
     private String name;
     private String idCard;
     private Boolean gender;
+//    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email không đúng định dạng. Ví dụ: your_email@domain.com")
     private String email;
     private String dateOfBirth;
+//    @Pattern(regexp = "^(0|\\+84)\\d{9}$")
     private String phone;
     private Double salary;
+//    @Size(max = 250, message = "Địa chỉ không được quá 250 ký tự")
     private String address;
     private String avatar;
     private Boolean flagDelete = true;

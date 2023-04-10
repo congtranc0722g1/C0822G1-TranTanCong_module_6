@@ -1,9 +1,11 @@
 package com.electronic_project.service;
 
 import com.electronic_project.dto.request.UpdateUserForm;
+import com.electronic_project.dto.user.UserDto;
 import com.electronic_project.model.user.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IUserService {

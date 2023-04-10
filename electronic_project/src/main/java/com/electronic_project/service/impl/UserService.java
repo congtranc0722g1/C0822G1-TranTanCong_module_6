@@ -1,6 +1,7 @@
 package com.electronic_project.service.impl;
 
 import com.electronic_project.dto.request.UpdateUserForm;
+import com.electronic_project.dto.user.UserDto;
 import com.electronic_project.model.user.Role;
 import com.electronic_project.model.user.User;
 import com.electronic_project.repository.IUserRepository;
@@ -10,9 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService implements IUserService {
@@ -28,19 +27,6 @@ public class UserService implements IUserService {
         return iUserRepository.findById(id).orElse(null);
     }
 
-//    @Override
-//    public void updateUser(UpdateUserForm updateUserForm) {
-//        iUserRepository.updateUser(updateUserForm.getName(),
-//                updateUserForm.getPhoneNumber(),
-//                updateUserForm.getEmail(),
-//                updateUserForm.getAddress(),
-//                updateUserForm.getAge(),
-//                updateUserForm.getGender(),
-//                updateUserForm.getDateOfBirth(),
-//                updateUserForm.getAvatar(),
-//                updateUserForm.getUsername());
-//    }
-
     @Override
     public void changePassword(String password, String username) {
         iUserRepository.changePassword(password,username);
@@ -50,7 +36,7 @@ public class UserService implements IUserService {
 
     @Override
     public void save(User user) {
-        iUserRepository.save(user.getName(),user.getUsername(), user.getEmail(), user.getPassword());
+        iUserRepository.save(user.getUsername(), user.getEmail(), user.getPassword());
         User user1 = iUserRepository.findByUsername(user.getUsername()).orElse(null);
         for (Role x: user.getRoles()) {
             assert user1 != null;
@@ -97,8 +83,6 @@ public class UserService implements IUserService {
     public List<User> findAll() {
         return iUserRepository.findAll();
     }
-
-
 
 }
 

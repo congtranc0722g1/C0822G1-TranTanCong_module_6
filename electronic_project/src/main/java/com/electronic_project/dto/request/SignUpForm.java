@@ -4,26 +4,30 @@ import com.electronic_project.model.user.User;
 import org.springframework.validation.Errors;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 public class SignUpForm {
-    @NotBlank(message = "Tên không được để trống")
-    private String name;
     @NotBlank(message = "Vui lòng nhập tên đăng nhập")
+    @Size(min = 6, max = 30, message = "Tên đăng nhập phải có ít nhất 6 ký tự tối đa 30 ký tự")
     private String username;
     @NotBlank(message = "Vui lòng nhập email")
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email không đúng định dạng. Ví dụ: your_email@domain.com")
     private String email;
     @NotBlank(message = "Vui lòng nhập mật khẩu")
+    @Size(min = 6, max = 30, message = "Mật khẩu phải có ít nhất 6 ký tự tối đa 30 ký tự")
     private String password;
+    @NotBlank(message = "Vui lòng nhập xác nhận lại mật khẩu")
+    private String confirmPassword;
     private Set<String> roles;
 
     public SignUpForm() {
     }
 
-    public SignUpForm(String name, String username, String email, String password, Set<String> roles) {
-        this.name = name;
+    public SignUpForm(String username, String email, String password, String confirmPassword, Set<String> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -38,14 +42,13 @@ public class SignUpForm {
                errors.rejectValue("email", "email", "Email " + signInForm.getEmail() + " đã được sử dụng");
            }
        }
-   }
-    public String getName() {
-        return name;
-    }
+       if (signInForm.getPassword() != null && signInForm.getConfirmPassword() != null) {
+           if (!signInForm.getPassword().equals(signInForm.getConfirmPassword())){
+               errors.rejectValue("confirmPassword", "confirmPassword", "Mật khẩu nhập lại không đúng");
+           }
+       }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   }
 
     public String getUsername() {
         return username;
@@ -69,6 +72,14 @@ public class SignUpForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public Set<String> getRoles() {

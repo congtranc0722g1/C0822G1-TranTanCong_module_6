@@ -8,7 +8,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -19,7 +23,10 @@ public class UserController {
     private IUserService userService;
 
     @PutMapping("/update")
-    private ResponseEntity<?> updateUser(@RequestBody UserDto userDto){
+    private ResponseEntity<?> updateUser(@RequestBody @Validated UserDto userDto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
         userService.updateUser(user.getName(), user.getDateOfBirth(), user.getGender(), user.getPhone(), user.getEmail(), user.getAddress(), user.getId());

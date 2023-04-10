@@ -83,7 +83,7 @@
 
                   <select formControlName="trademark" type="text" id="trademark" name="trademark" placeholder="Nhập tên sản phẩm"
                          class="form-control form-control-md">
-                    <option class="form-control text-center" value="">Chọn thương hiệu</option>
+                    <option selected class="form-control text-center" value="">Chọn thương hiệu</option>
                     <option *ngFor="let trademark of trademarkList" class="form-control" [ngValue]="trademark">{{trademark.name}}</option>
                   </select>
                 </div>
@@ -98,8 +98,8 @@
                 </div>
                 <div style="position: relative" class="col-md-8 pe-4">
 
-                  <input formControlName="description" type="text" id="description" name="description" placeholder="Nhập mô tả"
-                         class="form-control form-control-md" (focusin)="reset()"/>
+                  <textarea formControlName="description" type="text" id="description" name="description" placeholder="Nhập mô tả"
+                         class="form-control form-control-md"></textarea>
 <!--                  <p style="color: red; position: absolute"-->
 <!--                     *ngIf="(clickButton && form.controls.address.hasError('required')) || form.controls.address.hasError('required') && form.controls.address.touched">-->
 <!--                    Không được để trống.</p>-->

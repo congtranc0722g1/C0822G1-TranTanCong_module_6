@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="background-color: #47991f">
   <div class="row align-items-center py-1 px-xl-5" >
     <div class="col-lg-2 col-2 justify-content-lg-start">
       <a routerLink="" class="text-decoration-none">
@@ -7,32 +7,45 @@
                                                           width="100px"></span></h1>
       </a>
     </div>
-    <div class="col-lg-7 col-7">
-<!--      <div class="input-group">-->
-<!--        <input #name1 type="text" class="form-control" placeholder="Nhập tên sản phẩm" [(ngModel)]="temp">-->
-<!--        <div class="input-group-append">-->
-<!--                                        <span class="input-group-text text-primary" style="background-color: white">-->
-<!--                                            <i class="fa fa-search"></i>-->
-<!--                                        </span>-->
-<!--        </div>-->
-<!--      </div>-->
-    </div>
+    <div class="col-lg-5 col-5 text-left d-none d-lg-block mt-2">
+      <h4>LINH KIỆN ĐIỆN TỬ <span style="color: red">THÀNH CÔNG</span></h4>
 
-    <div *ngFor="let product of productList">
-      <p>{{product.name}}</p>
     </div>
+    <div class="col-lg-2 col-2 text-left"></div>
+    <div class="col-lg-5 col-5 text-left d-block d-lg-none"></div>
 
-    <div class="col-lg-3 col-3 text-right">
+<!--    <div *ngFor="let product of productList">-->
+<!--      <p>{{product.name}}</p>-->
+<!--    </div>-->
+
+    <div class="col-lg-3 col-3 text-right d-none d-lg-block">
       <div class="dropdown justify-content-center d-flex">
         <div style="cursor: pointer;font-size: 20px;font-weight: bold;color: darkblue" *ngIf="isLogged == false" routerLink="/login">Đăng nhập</div>
-        <div *ngIf="isLogged == true"  style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div *ngIf="isLogged == true && user.name"  style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 <!--          <img src="{{user.avatar}}" style="width: 30px;height: 30px;border-radius: 50%;border: 1px solid #10707f">-->
           <span class="ml-1">Xin chào: </span>
           <span class="ml-1" style="font-weight: bold; position: relative">{{user.name | uppercase}}</span>
         </div>
+        <div *ngIf="isLogged == true && !user.name"  style="cursor: pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{user.avatar}}" style="width: 50px;margin-left: 100px; height: 50px;border-radius: 50%;border: 1px solid #10707f">
+        </div>
         <div *ngIf="isLogged == true" style="z-index: 9999; position: absolute; margin-right: 100px; width: 10px" class="dropdown-menu container-fluid text-left" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" data-dismiss="dropdown" aria-disabled="true" routerLink="/user/edit">Hồ sơ</a>
-          <a class="dropdown-item" routerLink="cart/purchase-history">Đơn hàng</a>
+          <a class="dropdown-item" data-dismiss="dropdown" aria-disabled="true" routerLink="/user/profile">Hồ sơ</a>
+          <a *ngIf="role != 'ROLE_ADMIN'" class="dropdown-item" routerLink="cart/purchase-history">Đơn hàng</a>
+          <a  class="dropdown-item" style="cursor: pointer;z-index: 30;padding-bottom: 10px" (click)="logout()">Đăng xuất</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-3 text-right d-block d-lg-none">
+      <div class="dropdown justify-content-center d-flex">
+        <div style="cursor: pointer;font-size: 25px;font-weight: bold;color: darkblue" *ngIf="isLogged == false" routerLink="/login">Đăng nhập</div>
+        <div *ngIf="isLogged == true"  style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="{{user.avatar}}" style="width: 50px;height: 50px;border-radius: 50%;border: 1px solid #10707f">
+        </div>
+        <div *ngIf="isLogged == true" style="z-index: 9999; position: absolute; margin-right: 100px; width: 10px" class="dropdown-menu container-fluid text-left" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" data-dismiss="dropdown" aria-disabled="true" routerLink="/user/profile">Hồ sơ</a>
+          <a *ngIf="role != 'ROLE_ADMIN'" class="dropdown-item" routerLink="cart/purchase-history">Đơn hàng</a>
           <a  class="dropdown-item" style="cursor: pointer;z-index: 30;padding-bottom: 10px" (click)="logout()">Đăng xuất</a>
         </div>
       </div>
@@ -56,7 +69,7 @@
               <a class="nav-item nav-link text-white btn-outline-danger">Giới thiệu</a>
               <a routerLink="/product" class="nav-item nav-link text-white btn-outline-danger">Sản phẩm</a>
               <a class="nav-item nav-link text-white btn-outline-danger">Liên hệ</a>
-              <div class="nav-item dropdown">
+              <div *ngIf="role == 'ROLE_ADMIN'" class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle text-white btn-outline-danger" data-toggle="dropdown">Quản lý</a>
                 <div class="dropdown-menu rounded-0 m-0">
                   <a routerLink="product/list" class="dropdown-item">Quản lý sản phẩm</a>
@@ -84,7 +97,7 @@
 
             <div class="navbar-nav mb-1 ml-5"></div>
 
-            <div class="navbar-nav mb-1 text-center">
+            <div *ngIf="role != 'ROLE_ADMIN'" class="navbar-nav mb-1 text-center">
               <a (click)="checKLogin()" class="mt-1"><span data-v-25046f15="" class="icon cart-count justify-content-end"><svg xmlns="http://www.w3.org/2000/svg" color="white" width="25" height="25" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 </svg><span class="badge badge-pill badge-danger" *ngIf="cartList.length > 0">{{cartList.length}}</span></span>

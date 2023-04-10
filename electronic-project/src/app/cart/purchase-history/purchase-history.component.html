@@ -2,7 +2,7 @@
   <h2 class="mb-3">Đơn hàng của bạn</h2>
   <table class="table text-center table-hover">
     <thead>
-    <tr class="bg-info">
+    <tr class="bg-info text-white" style="text-align: center">
       <th>STT</th>
       <th>Mã đơn hàng</th>
       <th>Ngày mua</th>
@@ -13,12 +13,12 @@
     </thead>
     <tbody>
     <tr *ngFor="let purchase of purchaseList; index as i">
-      <td>{{i+1}}</td>
+      <td>{{i + 1 + (page * size)}}</td>
       <td>{{purchase.code}}</td>
-      <td>{{purchase.orderDate}}</td>
+      <td>{{purchase.orderDate | date: "hh:mm:ss dd/MM/yyyy"}}</td>
       <td>{{purchase.status}}</td>
-      <td>{{purchase.total}}</td>
-      <td><a data-toggle="modal" data-target="#exampleModal" (click)="viewDetail(purchase.customerName, purchase.customerPhone, purchase.customerAddress)"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 32px; height: 32px">
+      <td>{{purchase.total | number:'1.0-0'}} VNĐ</td>
+      <td><a data-toggle="modal" data-target="#exampleModal" (click)="viewDetail(purchase.customerName, purchase.customerPhone, purchase.customerAddress, purchase.id)"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 32px; height: 32px">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
       </svg>
       </a></td>
@@ -27,8 +27,68 @@
   </table>
 </div>
 
+
+<!--        Phân trang-->
+<div>
+  <div *ngIf="purchasePage" class="d-flex justify-content-center" id="last-row">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="purchasePage.first ? 'disabled': ''">
+          <a role="button" class="page-link" (click)="getAll(id, 0)">Trang đầu</a>
+        </li>
+        <li class="page-item" [ngClass]="purchasePage.first ? 'disabled': ''">
+          <a role="button" class="page-link" (click)="getAll(id,purchasePage.number - 1)"><</a>
+        </li>
+        <li class="page-item" *ngIf="purchasePage.number - 3 > 0">
+          <a role="button" class="page-link"
+             (click)="getAll(id, purchasePage.number - 4)">{{purchasePage.number - 3}}</a>
+        </li>
+        <li class="page-item" *ngIf="purchasePage.number - 2 > 0">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number - 3)">{{purchasePage.number - 2}}</a>
+        </li>
+        <li class="page-item" *ngIf="purchasePage.number - 1 > 0">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number - 2)">{{purchasePage.number - 1}}</a>
+        </li>
+        <li class="page-item" *ngIf="purchasePage.number > 0">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number - 1)">{{purchasePage.number}}</a>
+        </li>
+        <li class="page-item active"><a class="page-link">{{purchasePage.number + 1}}</a></li>
+        <li class="page-item" *ngIf="purchasePage.number + 2 <= purchasePage.totalPages">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number + 1)">{{purchasePage.number + 2}}</a>
+        </li>
+        <li class="page-item" *ngIf="purchasePage.number + 3 <= purchasePage.totalPages">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number + 2)">{{purchasePage.number + 3}}</a>
+        </li>
+        <li class="page-item" *ngIf="purchasePage.number + 4 <= purchasePage.totalPages">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number + 3)">{{purchasePage.number + 4}}</a>
+        </li>
+        <li class="page-item" *ngIf="purchasePage.number + 5 <= purchasePage.totalPages">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number + 4)">{{purchasePage.number + 5}}</a>
+        </li>
+        <li class="page-item" [ngClass]="purchasePage.last ? 'disabled': ''">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.number + 1)">></a>
+        </li>
+        <li class="page-item" [ngClass]="purchasePage.last ? 'disabled': ''">
+          <a role="button" class="page-link"
+             (click)="getAll(id,purchasePage.totalPages - 1)">
+            Trang cuối
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn hàng</h5>
@@ -37,43 +97,48 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="container">
-          <h1 align="center;" style="margin-top: 8%;margin-left: 14%">Lịch sử mua hàng</h1>
-          <div class="container" style="margin-top: 30px">
-            <table class="table">
+        <div class="">
+          <h5 align="center">Thông tin người nhận</h5>
+          <div>
+            <table class="table text-center table-hove">
               <thead>
-              <tr>
-                <th>Họ và tên: {{customerName}}</th>
+              <tr style="text-align: left">
+                <td><span style="font-weight: bold" >Họ và tên: </span> <span>{{customerName}}</span></td>
+              </tr>
+              <tr style="text-align: left">
+                <td><span style="font-weight: bold">Số điện thoại: </span> <span>{{customerPhone}}</span></td>
+              </tr>
+              <tr style="text-align: left">
+                <td><span style="font-weight: bold">Địa chỉ nhận hàng: </span> <span>{{customerAddress}}</span></td>
               </tr>
               <tr>
-                <th>Số điện thoại: {{customerPhone}}</th>
-              </tr>
-              <tr>
-                <th>Địa chỉ nhận hàng: {{customerAddress}}</th>
+                <td></td>
               </tr>
               </thead>
             </table>
           </div>
 
 
-          <h2 align="center" style="color: black">Chi tiết lịch sử mua hàng</h2>
-          <div class=" container py-5 h-100">
+<!--          <h5 class="mt-3" align="center" style="color: black">Chi tiết đơn hàng</h5>-->
+          <div>
 
             <table class=" table table-striped table-hover">
               <thead>
-              <tr>
+              <tr class="bg-info text-white" style="text-align: center">
                 <th>STT</th>
                 <th>Tên sản phẩm</th>
-                <th>Số lượng</th>
-                <th>Số tiền</th>
+                <th style="width: 150px">Số lượng</th>
+                <th style="width: 150px">Giá</th>
+                <th style="width: 150px">Tạm tính</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
+              <tr *ngFor="let purchaseDetail of purchaseDetailList; index as i" style="text-align: center">
+                <td>{{i + 1}}</td>
+                <td>{{purchaseDetail.name}}</td>
+                <td>{{purchaseDetail.totalQuantity}}</td>
+                <td>{{purchaseDetail.price | number:'1.0-0'}} VNĐ</td>
+                <td>{{purchaseDetail.total | number:'1.0-0'}} VNĐ</td>
               </tr>
               </tbody>
             </table>
@@ -99,8 +164,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Xong</button>
       </div>
     </div>
   </div>

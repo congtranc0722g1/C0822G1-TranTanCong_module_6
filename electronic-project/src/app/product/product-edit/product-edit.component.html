@@ -1,1 +1,172 @@
-<p>product-edit works!</p>
+<section class="vh-120 gradient-custom" style="margin-top: 50px; margin-bottom: 50px">
+  <div class=" ml-5 mr-5 py-1">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <div class="card-body p-4 p-md-4">
+            <h1 class="mb-3 mt-3 text-center">Thêm mới sản phẩm</h1>
+
+            <form [formGroup]="form" (ngSubmit)="updateProduct()" class="px-md-2">
+
+              <div class="row align-items-center pt-3 pb-4">
+                <div class="col-md-4 ps-3">
+
+                  <label style="font-weight: bold" for="code" class="mb-0">Mã sản phẩm</label>
+
+                </div>
+                <div style="position: relative" class="col-md-8 pe-4">
+
+                  <input readonly formControlName="code" type="text" id="code" name="code" placeholder="Nhập mã sản phẩm"
+                         class="form-control form-control-md"/>
+
+
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-4">
+                <div class="col-md-4 ps-3">
+
+                  <label style="font-weight: bold" for="name" class="mb-0">Tên sản phẩm<sup
+                    style="color: red; font-size: 15px" class="m-1">*</sup></label>
+
+                </div>
+                <div style="position: relative" class="col-md-8 pe-4">
+
+                  <input formControlName="name" type="text" id="name" name="name" placeholder="Nhập tên sản phẩm"
+                         class="form-control form-control-md" (focusin)="reset()"/>
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.name.hasError('required')) || form.controls.name.hasError('required') && form.controls.name.touched">-->
+                  <!--                    Không được để trống.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.name.hasError('maxlength')) || form.controls.name.hasError('maxlength') && form.controls.name.touched">-->
+                  <!--                    Tên nhà cung cấp không được quá 100 ký tự.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="errors.name && !form.controls.name.hasError('required') && !form.controls.name.hasError('maxlength')">{{errors.name}}</p>-->
+
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-4">
+                <div class="col-md-4 ps-3">
+
+                  <label style="font-weight: bold" for="category" class="mb-0">Danh mục<sup
+                    style="color: red; font-size: 15px" class="m-1">*</sup></label>
+
+                </div>
+                <div style="position: relative" class="col-md-8 pe-4">
+
+                  <select formControlName="category" id="category" name="category"
+                          class="form-control form-control-md" [compareWith]="compareWith">
+                    <option class="text-center" value="">Chọn danh mục</option>
+                    <option *ngFor="let category of categoryList" class="form-control" [ngValue]="category">{{category.name}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-4">
+                <div class="col-md-4 ps-3">
+
+                  <label style="font-weight: bold" for="trademark" class="mb-0">Thương hiệu<sup
+                    style="color: red; font-size: 15px" class="m-1">*</sup></label>
+
+                </div>
+                <div style="position: relative" class="col-md-8 pe-4">
+
+                  <select formControlName="trademark" type="text" id="trademark" name="trademark" placeholder="Nhập tên sản phẩm"
+                          class="form-control form-control-md" [compareWith]="compareWith1">
+                    <option selected class="form-control text-center" value="">Chọn thương hiệu</option>
+                    <option *ngFor="let trademark of trademarkList" class="form-control" [ngValue]="trademark">{{trademark.name}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-4">
+                <div class="col-md-4 ps-3">
+
+                  <label style="font-weight: bold" for="description" class="mb-0">Mô tả sản phẩm<sup
+                    style="color: red; font-size: 15px" class="m-1">*</sup></label>
+
+                </div>
+                <div style="position: relative" class="col-md-8 pe-4">
+
+                  <textarea formControlName="description" type="text" id="description" name="description" placeholder="Nhập mô tả"
+                            class="form-control form-control-md"></textarea>
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.address.hasError('required')) || form.controls.address.hasError('required') && form.controls.address.touched">-->
+                  <!--                    Không được để trống.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.address.hasError('maxlength')) || form.controls.address.hasError('maxlength') && form.controls.address.touched">-->
+                  <!--                    Địa chỉ không được quá 200 ký tự.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="errors.address && !form.controls.address.hasError('required') && !form.controls.address.hasError('maxlength')">{{errors.address}}</p>-->
+
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-4">
+                <div class="col-md-4 ps-3">
+
+                  <label style="font-weight: bold" for="entryPrice" class="mb-0">Giá nhập<sup
+                    style="color: red; font-size: 15px" class="m-1">*</sup></label>
+
+                </div>
+                <div style="position: relative" class="col-md-8 pe-4">
+
+                  <input formControlName="entryPrice" type="text" id="entryPrice" name="entryPrice"
+                         placeholder="Nhập giá" class="form-control form-control-md" (focusin)="reset()"/>
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.phoneNumber.hasError('required')) || form.controls.phoneNumber.hasError('required') && form.controls.phoneNumber.touched">-->
+                  <!--                    Không được để trống.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.phoneNumber.hasError('pattern')) || form.controls.phoneNumber.hasError('pattern') && form.controls.phoneNumber.touched">-->
+                  <!--                    Số điện thoại không đúng định dạng (Ví dụ: +84937110xxx / 0937110xxx).</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="errors.phoneNumber && !form.controls.phoneNumber.hasError('required') && !form.controls.phoneNumber.hasError('pattern')">{{errors.phoneNumber}}</p>-->
+
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-4">
+                <div class="col-md-4 ps-3">
+
+                  <label style="font-weight: bold" for="quantity" class="mb-0">Số lượng<sup
+                    style="color: red; font-size: 15px" class="m-1">*</sup></label>
+
+                </div>
+                <div style="position: relative" class="col-md-8 pe-4">
+
+                  <input formControlName="quantity" type="text" id="quantity" name="quantity" placeholder="Nhập số lượng"
+                         class="form-control form-control-md" (focusin)="reset()"/>
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.email.hasError('required')) || form.controls.email.hasError('required') && form.controls.email.touched">-->
+                  <!--                    Không được để trống.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="(clickButton && form.controls.email.hasError('pattern')) || form.controls.email.hasError('pattern') && form.controls.email.touched">-->
+                  <!--                    Email không đúng định dạng (Ví dụ: supplier-email@email.com).</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="form.controls.email.hasError('minlength') && form.controls.email.touched && !form.controls.email.hasError('pattern')">-->
+                  <!--                    Email phải từ 5 đến 150 ký tự.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="form.controls.email.hasError('maxlength') && form.controls.email.touched && !form.controls.email.hasError('pattern')">-->
+                  <!--                    Email phải từ 5 đến 150 ký tự.</p>-->
+                  <!--                  <p style="color: red; position: absolute"-->
+                  <!--                     *ngIf="errors.email && !form.controls.email.hasError('required') && !form.controls.email.hasError('pattern')">{{errors.email}}</p>-->
+
+                </div>
+              </div>
+
+              <div class=" text-center">
+                <button type="submit" class="btn btn-primary m-4 w-25">Thêm mới</button>
+                <button type="reset" class="btn btn-secondary m-4 w-25">Hủy</button>
+
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -22,7 +22,7 @@
             <input #name class="form-control me-1" type="text" placeholder="Tìm kiếm nhà cung cấp"
                    aria-label="Search" style="margin-right: 21px">
             <div class="input-group-prepend">
-              <button class="input-group-text bg-transparent text-primary" (click)="showListProductManager(+category.value, +trademark.value, name.value)">
+              <button class="input-group-text bg-transparent text-primary" (click)="showListProductManager(+category.value, +trademark.value, name.value, page)">
                 <i class="fa fa-search"></i>
               </button>
             </div>
@@ -38,85 +38,131 @@
         <tr class="bg-info" style="color: white">
           <th style="width: 100px">STT</th>
           <th style="width: 200px">Mã sản phẩm</th>
-          <th style="width: 200px">Tên sản phẩm</th>
-          <th style="width: 300px">Mô tả</th>
+          <th style="width: 250px">Tên sản phẩm</th>
+          <th style="width: 250px">Mô tả</th>
           <th style="width: 150px">Giá nhập</th>
           <th style="width: 150px">Giá bán</th>
           <th style="width: 150px">Số lượng</th>
+          <th style="width: 150px">Hình ảnh</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr style="cursor: pointer" *ngFor="let item of productListManager, index as i" (click)="product = item"
+        <tr style="cursor: pointer" class="text-center" *ngFor="let item of productListManager, index as i" (click)="product = item"
             [class.table-active]="item == product">
-          <td>{{i + 1}}</td>
+          <td>{{i + 1 + (page * size)}}</td>
           <td>{{item?.code}}</td>
-          <td class="text-left">{{item?.name}}</td>
-          <td class="text-left">{{item?.description | slice: 0:30}}...</td>
-          <td>{{item?.entryPrice}}</td>
-          <td class="text-left">{{item?.price}}</td>
-          <td class="text-left">{{item?.quantity}}</td>
+          <td>{{item?.name}}</td>
+          <td>{{item?.description | slice: 0:30}}...</td>
+          <td>{{item?.entryPrice | number:'1.0-0'}} VNĐ</td>
+          <td>{{item?.price | number:'1.0-0'}} VNĐ</td>
+          <td>{{item?.quantity}}</td>
+          <td><a (click)="getListImage(item.id)" data-toggle="modal" data-target="#exampleModal"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 30px; height: 30px">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+          </a></td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!--    Phân trang-->
+  <!--        Phân trang-->
+  <div>
+    <div *ngIf="productPage" class="d-flex justify-content-center" id="last-row">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" [ngClass]="productPage.first ? 'disabled': ''">
+            <a role="button" class="page-link" (click)="showListProductManager(+category.value, +trademark.value, name.value, 0)">Trang đầu</a>
+          </li>
+          <li class="page-item" [ngClass]="productPage.first ? 'disabled': ''">
+            <a role="button" class="page-link" (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number - 1)"><</a>
+          </li>
+          <li class="page-item" *ngIf="productPage.number - 3 > 0">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number - 4)">{{productPage.number - 3}}</a>
+          </li>
+          <li class="page-item" *ngIf="productPage.number - 2 > 0">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number - 3)">{{productPage.number - 2}}</a>
+          </li>
+          <li class="page-item" *ngIf="productPage.number - 1 > 0">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number - 2)">{{productPage.number - 1}}</a>
+          </li>
+          <li class="page-item" *ngIf="productPage.number > 0">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number - 1)">{{productPage.number}}</a>
+          </li>
+          <li class="page-item active"><a class="page-link">{{productPage.number + 1}}</a></li>
+          <li class="page-item" *ngIf="productPage.number + 2 <= productPage.totalPages">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number + 1)">{{productPage.number + 2}}</a>
+          </li>
+          <li class="page-item" *ngIf="productPage.number + 3 <= productPage.totalPages">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number + 2)">{{productPage.number + 3}}</a>
+          </li>
+          <li class="page-item" *ngIf="productPage.number + 4 <= productPage.totalPages">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number + 3)">{{productPage.number + 4}}</a>
+          </li>
+          <li class="page-item" *ngIf="productPage.number + 5 <= productPage.totalPages">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number + 4)">{{productPage.number + 5}}</a>
+          </li>
+          <li class="page-item" [ngClass]="productPage.last ? 'disabled': ''">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.number + 1)">></a>
+          </li>
+          <li class="page-item" [ngClass]="productPage.last ? 'disabled': ''">
+            <a role="button" class="page-link"
+               (click)="showListProductManager(+category.value, +trademark.value, name.value,productPage.totalPages - 1)">
+              Trang cuối
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
-<!--  <div style="cursor: pointer" class="container-fluid" *ngIf="supplierList?.content?.length != 0">-->
-<!--    <nav aria-label="Page navigation example" style="float: right; margin-top: 10px">-->
-<!--      <ul *ngIf="supplierList.totalPages > 3" class="pagination">-->
-<!--        <li class="page-item"><a style="cursor: pointer" class="page-link" [ngClass]="supplierList.first ? 'disabled': ''"-->
-<!--                                 (click)="getAll(supplierList.number - 1)">Trang trước</a></li>-->
-
-<!--        <li class="page-item" [class.active]="supplierList.pageable.pageNumber < supplierList.totalPages -1"><a-->
-<!--          (click)="getAll(supplierList.pageable.pageNumber)" class="page-link"> {{supplierList.pageable.pageNumber-->
-<!--        + ((supplierList.pageable.pageNumber + 1 == supplierList.totalPages) ? 0 : 1)}}-->
-<!--        </a></li>-->
-
-<!--        <li class="page-item"><a-->
-<!--          class="page-link"> ...-->
-<!--        </a></li>-->
-
-<!--        <li class="page-item" [class.active]="supplierList.totalPages - 1 == supplierList.pageable.pageNumber"><a-->
-<!--          (click)="getAll(supplierList.totalPages - 1)" class="page-link"> {{supplierList.totalPages}}-->
-<!--        </a></li>-->
-
-<!--        <li class="page-item"><a class="page-link"-->
-<!--                                 [ngClass]="supplierList.number + 1 == supplierList.totalPages? 'disabled': ''"-->
-<!--                                 (click)="getAll(supplierList.number + 1)">Trang sau</a></li>-->
-<!--      </ul>-->
-
-<!--      <ul class="pagination" *ngIf="supplierList.totalPages <= 3">-->
-<!--        <li class="page-item"><a class="page-link" [ngClass]="supplierList.first ? 'disabled': ''"-->
-<!--                                 (click)="getAll(supplierList.number - 1)">Trang trước</a></li>-->
-
-<!--        <li *ngFor="let num of nums" class="page-item" [class.active]="num == supplierList.pageable.pageNumber"><a-->
-<!--          (click)="getAll(num)" class="page-link"> {{num + 1}}-->
-<!--        </a></li>-->
-
-<!--        <li class="page-item"><a class="page-link" [ngClass]="supplierList.number + 1 == supplierList.totalPages? 'disabled': ''"-->
-<!--                                 (click)="getAll(supplierList.number + 1)">Trang sau</a></li>-->
-<!--      </ul>-->
-<!--    </nav>-->
-<!--  </div>-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Quản lý hình ảnh sản phẩm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div *ngFor="let imgae of imageList" class="col-4 border justify-content-center"><img src="{{imgae.url}}" style="width: 150px; height: 150px;margin-left: 40px"></div>
+            </div>
+            <hr class="mt-2">
+          </div>
+          <input (change)="showPreview($event)" type="file">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Xong</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="d-flex justify-content-start" style="position: relative;">
-<!--    <button style="margin-left: 10px" type="submit" class=" btn btn-outline-secondary" [routerLink]="['/']">Thoát-->
-<!--    </button>-->
-    <button style="margin-left: 10px" type="submit" class=" btn btn-outline-success" routerLink="/product/create">
+    <button style="margin-left: 10px" type="submit" class=" btn btn-primary" routerLink="/product/create">
       Thêm mới
     </button>
-<!--    <button [disabled]="supplier == null" style="margin-left: 10px" type="submit" class=" btn btn-outline-primary"-->
-<!--            (click)="update()">Chỉnh sửa-->
-<!--    </button>-->
+    <button [disabled]="product== null" style="margin-left: 10px" type="submit" class=" btn btn-success"
+            (click)="update()">Chỉnh sửa
+    </button>
 
-<!--    <button style="margin-left: 10px" *ngIf="role == 'ROLE_ADMIN'" [disabled]="supplier == null" (click)="delete(supplier)" class=" btn btn-outline-danger" data-toggle="modal"-->
-<!--            data-target="#exampleModal"-->
-<!--            type="submit">-->
-<!--      Xoá-->
-<!--    </button>-->
+    <button style="margin-left: 10px" [disabled]="product == null" (click)="delete()" class=" btn btn-danger"
+            type="submit">
+      Xoá
+    </button>
   </div>
 </div>
 <br>

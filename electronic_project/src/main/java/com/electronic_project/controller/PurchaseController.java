@@ -2,8 +2,10 @@ package com.electronic_project.controller;
 
 import com.electronic_project.dto.cart.CartDto;
 import com.electronic_project.dto.cart.UpdateCartDto;
+import com.electronic_project.dto.purchase.IPurchaseDetailDto;
 import com.electronic_project.dto.purchase.IPurchaseHistoryDto;
 import com.electronic_project.model.purchase.Purchase;
+import com.electronic_project.model.purchase.PurchaseDetail;
 import com.electronic_project.service.ICartService;
 import com.electronic_project.service.IPurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -38,10 +41,16 @@ public class PurchaseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/list-purchase")
-//    private ResponseEntity<Page<IPurchaseHistoryDto>> showAll(@RequestParam(value = "id") Integer id, @PageableDefault(size = 5)Pageable pageable){
-//        Page<IPurchaseHistoryDto> purchases = purchaseService.showAll(id, pageable);
-//        return new ResponseEntity<>(purchases, HttpStatus.OK);
-//
-//    }
+    @GetMapping("/list-purchase")
+    private ResponseEntity<Page<IPurchaseHistoryDto>> showAll(@RequestParam(value = "id") Integer id, @PageableDefault(size = 5)Pageable pageable){
+        Page<IPurchaseHistoryDto> purchases = purchaseService.showAll(id, pageable);
+        return new ResponseEntity<>(purchases, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/list-purchase-detail")
+    private ResponseEntity<List<IPurchaseDetailDto>> showDetailPurchase(@RequestParam(value = "id") Integer id){
+        List<IPurchaseDetailDto> purchaseDetailList = purchaseService.showDetailPurchase(id);
+        return new ResponseEntity<>(purchaseDetailList, HttpStatus.OK);
+    }
 }

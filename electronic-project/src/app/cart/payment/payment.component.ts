@@ -9,6 +9,8 @@ import {User} from "../../model/user/user";
 import {render} from "creditcardpayments/creditCardPayments";
 import {PurchaseService} from "../../service/purchase/purchase.service";
 import {ProductService} from "../../service/product/product.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-payment',
@@ -22,9 +24,14 @@ export class PaymentComponent implements OnInit {
   totalPayment: number = 0;
   usdPayment: number;
   temp: number = 1;
-  customerName: string;
-  customerPhone: string;
-  customerAddress: string;
+
+  form = new FormGroup({
+    userId: new FormControl(+this.token.getId()),
+    purchaseStatus: new FormControl(2),
+    name: new FormControl("", [Validators.required]),
+    phone: new FormControl("", [Validators.required, Validators.pattern("^(0|\\+84)\\d{9}$")]),
+    address: new FormControl("", [Validators.required]),
+  })
 
   constructor(private loginService: LoginService,
               private token: TokenService,
@@ -32,7 +39,8 @@ export class PaymentComponent implements OnInit {
               private share: ShareService,
               private router: Router,
               private purchaseService: PurchaseService,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private titleService: Title) {
     this.isLogged = this.token.isLogger()
     this.loader()
     this.share.getClickEvent().subscribe(next => {
@@ -40,9 +48,11 @@ export class PaymentComponent implements OnInit {
       this.loader();
       this.getTotalPayment(+this.token.getId())
     })
-    this.getCart(+this.token.getId())
+    this.getCart(+this.token.getId());
 
-    this.getTotalPayment(+this.token.getId())
+    this.getTotalPayment(+this.token.getId());
+
+    this.titleService.setTitle("Thanh toán");
   }
 
   ngOnInit(): void {
@@ -57,7 +67,6 @@ export class PaymentComponent implements OnInit {
         currency: "USD",
         value: (this.usdPayment).toFixed(2),
         onApprove: (details) => {
-          console.log(this.customerName)
           this.updatePurchase();
           this.router.navigateByUrl("/cart/purchase-history")
           this.productService.updateQuantityProduct(this.cartList).subscribe(next => {
@@ -66,11 +75,6 @@ export class PaymentComponent implements OnInit {
         }
       })
     })
-  }
-
-  updatePurchase(){
-    this.purchaseService.updatePurchase(+this.token.getId(), 2, this.user.name, this.user.phone, this.user.address).subscribe(next =>{
-    });
   }
 
   getCart(id: number) {
@@ -85,6 +89,7 @@ export class PaymentComponent implements OnInit {
       this.loginService.profile(this.token.getId()).subscribe(
         next => {
           this.user = next;
+          this.form.patchValue(next);
         }
       )
     }
@@ -103,10 +108,9 @@ export class PaymentComponent implements OnInit {
     this.share.sendClickEvent();
   }
 
-  paymentInfo(name: string, phone: string, address: string) {
-    console.log(name)
-    this.customerName = name;
-    this.customerPhone = phone;
-    this.customerAddress = address;
+  updatePurchase(){
+    this.purchaseService.updatePurchase(this.form.value).subscribe(next=>{
+
+    })
   }
 }

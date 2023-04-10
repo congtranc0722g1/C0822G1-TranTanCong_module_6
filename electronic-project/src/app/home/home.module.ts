@@ -8,10 +8,11 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import {ProductModule} from "../product/product.module";
 import {FormsModule} from "@angular/forms";
+import { ErrorComponent } from './error/error/error.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, BodyComponent, FooterComponent, MenuLeftComponent],
+  declarations: [HeaderComponent, BodyComponent, FooterComponent, MenuLeftComponent, ErrorComponent],
   exports: [
     HeaderComponent,
     FooterComponent

@@ -11,7 +11,7 @@ public class SignInForm {
 
     private String username;
     @Pattern(regexp = "^[a-zA-Z0-9]+$",message = "Mật khẩu không đúng định dạng")
-    @Size(min = 3,max = 50, message = "Mật khẩu không đúng định dạng")
+    @Size(min = 6,max = 50, message = "Mật khẩu phải tối thiểu 6 ký tự")
     @NotBlank(message = "Vui lòng nhập mật khẩu")
     private String password;
 
